@@ -1,37 +1,79 @@
 
 import React, { useState } from 'react';
 
-// Gallery images - in a real project, these would come from a CMS or backend
+// Gallery images using the uploaded images
 const galleryImages = [
   {
     id: 1,
-    src: 'https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1500&q=80',
-    alt: 'Luxora Villa Exterior',
+    src: '/lovable-uploads/06ef031e-998e-41b5-a951-2c8ba14df591.png',
+    alt: 'Villa Exterior with Pool',
     category: 'exterior'
   },
   {
     id: 2,
-    src: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1500&q=80',
-    alt: 'Villa Pool Area',
-    category: 'pool'
+    src: '/lovable-uploads/9f7fb5e6-83cd-4297-bf36-c7c208a66403.png',
+    alt: 'Pool Area Seating',
+    category: 'exterior'
   },
   {
     id: 3,
-    src: 'https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1500&q=80',
-    alt: 'Master Bedroom',
-    category: 'bedroom'
+    src: '/lovable-uploads/17d507de-ba3a-4058-abe3-c10f9cde1650.png',
+    alt: 'Pereybere Beach Sunset',
+    category: 'location'
   },
   {
     id: 4,
-    src: 'https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?auto=format&fit=crop&w=1500&q=80',
-    alt: 'Modern Kitchen',
-    category: 'kitchen'
+    src: '/lovable-uploads/fe796886-fbef-4626-bb98-2831ba06f4e3.png',
+    alt: 'Bedroom with Pool View',
+    category: 'bedroom'
   },
   {
     id: 5,
-    src: 'https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&fit=crop&w=1500&q=80',
-    alt: 'Luxury Bathroom',
+    src: '/lovable-uploads/b20acf9f-79d7-4a12-b87d-ab534f2d939a.png',
+    alt: 'Living Room with Pool View',
+    category: 'interior'
+  },
+  {
+    id: 6,
+    src: '/lovable-uploads/77624a5a-f93f-4f78-bfb8-c6d88cf9d7d1.png',
+    alt: 'Modern Kitchen and Dining Area',
+    category: 'kitchen'
+  },
+  {
+    id: 7,
+    src: '/lovable-uploads/0a540aea-f68a-4d87-b064-23c8a87b6549.png',
+    alt: 'Luxury Bathroom with Jacuzzi',
     category: 'bathroom'
+  },
+  {
+    id: 8,
+    src: '/lovable-uploads/8d3df2d7-ed3d-4430-9084-a928a3ae4679.png',
+    alt: 'Modern Bedroom',
+    category: 'bedroom'
+  },
+  {
+    id: 9,
+    src: '/lovable-uploads/6e9e28a8-4cd6-431c-9d15-c15ad821f630.png',
+    alt: 'Bedroom with Pool Access',
+    category: 'bedroom'
+  },
+  {
+    id: 10,
+    src: '/lovable-uploads/42ac3b94-9f10-49ef-8238-94f313a1bde6.png',
+    alt: 'Second Bedroom',
+    category: 'bedroom'
+  },
+  {
+    id: 11,
+    src: '/lovable-uploads/abb57903-7d11-459c-9ffe-7005a3f030b6.png',
+    alt: 'Pool View',
+    category: 'pool'
+  },
+  {
+    id: 12,
+    src: '/lovable-uploads/e3a75e0b-1d08-435c-a198-a5bb92cd996e.png',
+    alt: 'Garden Area',
+    category: 'exterior'
   }
 ];
 
@@ -114,12 +156,32 @@ const Gallery = () => {
             >
               Kitchen
             </button>
+            <button 
+              onClick={() => setFilter('interior')}
+              className={`px-4 py-2 rounded-full transition-all ${
+                filter === 'interior' 
+                  ? 'bg-luxury-blue text-white' 
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              Interior
+            </button>
+            <button 
+              onClick={() => setFilter('location')}
+              className={`px-4 py-2 rounded-full transition-all ${
+                filter === 'location' 
+                  ? 'bg-luxury-blue text-white' 
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              Location
+            </button>
           </div>
         </div>
         
         <div className="mb-8">
           {/* Main selected image */}
-          <div className="gallery-main-image h-[500px] animate-fade-in">
+          <div className="gallery-main-image h-[500px] animate-fade-in relative rounded-lg overflow-hidden">
             <img 
               src={selectedImage.src} 
               alt={selectedImage.alt} 
@@ -132,12 +194,12 @@ const Gallery = () => {
         </div>
         
         {/* Thumbnail grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {filteredImages.map((image) => (
             <div 
               key={image.id}
               onClick={() => setSelectedImage(image)}
-              className={`gallery-thumbnail h-[150px] ${
+              className={`gallery-thumbnail h-[100px] cursor-pointer ${
                 selectedImage.id === image.id ? 'ring-4 ring-luxury-gold' : ''
               }`}
             >

@@ -9,7 +9,7 @@ const HeroSection = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center" 
         style={{
-          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=2000&q=80')",
+          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/lovable-uploads/06ef031e-998e-41b5-a951-2c8ba14df591.png')",
         }}
       />
       
@@ -27,12 +27,16 @@ const HeroSection = () => {
               Experience luxury living in our stunning beachside villa with spectacular ocean views and world-class amenities.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-luxury-gold hover:bg-opacity-90 text-white font-semibold px-8 py-6 text-lg">
-                View Gallery
-              </Button>
-              <Button variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-luxury-dark px-8 py-6 text-lg">
-                Book Now
-              </Button>
+              <a href="#gallery">
+                <Button className="bg-luxury-gold hover:bg-opacity-90 text-white font-semibold px-8 py-6 text-lg w-full sm:w-auto">
+                  View Gallery
+                </Button>
+              </a>
+              <a href="#contact">
+                <Button variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-luxury-dark px-8 py-6 text-lg w-full sm:w-auto">
+                  Book Now
+                </Button>
+              </a>
             </div>
           </div>
         </div>
