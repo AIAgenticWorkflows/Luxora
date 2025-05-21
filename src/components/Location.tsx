@@ -1,52 +1,35 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Card, CardContent } from "@/components/ui/card";
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import { useEffect, useState } from 'react';
+import { Map, Navigation, NavigationCheck } from 'lucide-react';
+import L from 'leaflet';
+
+// Fix for default Leaflet icons
+const fixLeafletIcon = () => {
+  // Fix leaflet's default icon paths
+  delete (L.Icon.Default.prototype as any)._getIconUrl;
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+  });
+};
 
 const Location = () => {
-  const [mapboxToken, setMapboxToken] = useState<string>('');
-  const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<any>(null);
+  const [mapLoaded, setMapLoaded] = useState(false);
   
   // Pereybere, Mauritius coordinates
   const longitude = 57.5871;
   const latitude = -19.9895;
-  
+
   useEffect(() => {
-    const loadMapbox = async () => {
-      if (mapboxToken && mapContainer.current && !map.current) {
-        const mapboxgl = await import('mapbox-gl');
-        import('mapbox-gl/dist/mapbox-gl.css');
-        
-        mapboxgl.default.accessToken = mapboxToken;
-        
-        map.current = new mapboxgl.default.Map({
-          container: mapContainer.current,
-          style: 'mapbox://styles/mapbox/streets-v11',
-          center: [longitude, latitude],
-          zoom: 14
-        });
-        
-        // Add navigation controls
-        map.current.addControl(new mapboxgl.default.NavigationControl(), 'top-right');
-        
-        // Add marker for the villa
-        new mapboxgl.default.Marker({ color: "#D4AF37" })
-          .setLngLat([longitude, latitude])
-          .setPopup(new mapboxgl.default.Popup().setHTML("<h3 class='font-serif'>Luxora Villa</h3><p>Pereybere, Mauritius</p>"))
-          .addTo(map.current);
-      }
-    };
-    
-    loadMapbox();
-    
-    return () => {
-      if (map.current) {
-        map.current.remove();
-      }
-    };
-  }, [mapboxToken]);
+    fixLeafletIcon();
+    setMapLoaded(true);
+  }, []);
 
   return (
     <section id="location" className="py-20 bg-white">
@@ -118,35 +101,31 @@ const Location = () => {
           
           <div className="lg:w-1/2">
             <Card className="overflow-hidden shadow-xl h-[450px]">
-              {mapboxToken ? (
-                <div ref={mapContainer} className="w-full h-[450px]" />
+              {mapLoaded ? (
+                <MapContainer 
+                  center={[latitude, longitude]} 
+                  zoom={14} 
+                  scrollWheelZoom={false} 
+                  style={{ height: '100%', width: '100%' }}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker position={[latitude, longitude]}>
+                    <Popup>
+                      <div className="p-1">
+                        <h3 className="font-serif font-bold">Luxora Villa</h3>
+                        <p>Pereybere, Mauritius</p>
+                      </div>
+                    </Popup>
+                  </Marker>
+                </MapContainer>
               ) : (
                 <div className="p-6 flex flex-col items-center justify-center h-full bg-gray-50">
-                  <h3 className="text-2xl font-serif mb-4 text-center">Interactive Map</h3>
-                  <p className="mb-4 text-center text-gray-600">Enter your Mapbox API key to view the interactive map of Luxora Villa's location.</p>
-                  <div className="w-full max-w-md">
-                    <input
-                      type="text"
-                      placeholder="Enter your Mapbox public token"
-                      className="w-full p-3 border border-gray-300 rounded mb-3"
-                      value={mapboxToken}
-                      onChange={(e) => setMapboxToken(e.target.value)}
-                    />
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <p className="text-xs text-center text-gray-500">
-                            Where can I find my Mapbox token?
-                          </p>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p className="w-[250px] text-xs">
-                            Create an account at mapbox.com and get your public token from the Account dashboard.
-                          </p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
+                  <Navigation className="h-16 w-16 text-luxury-gold mb-4" />
+                  <h3 className="text-2xl font-serif mb-2 text-center">Loading Map...</h3>
+                  <p className="text-center text-gray-600">Please wait while we load the location map.</p>
                 </div>
               )}
             </Card>
