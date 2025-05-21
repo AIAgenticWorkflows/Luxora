@@ -22,9 +22,9 @@ const fixLeafletIcon = () => {
 const Location = () => {
   const [mapLoaded, setMapLoaded] = useState(false);
   
-  // Pereybere, Mauritius coordinates
-  const longitude = 57.5871;
-  const latitude = -19.9895;
+  // Updated precise coordinates for Luxora Villa
+  const longitude = 57.607427;
+  const latitude = -20.003798;
 
   useEffect(() => {
     fixLeafletIcon();
@@ -38,7 +38,7 @@ const Location = () => {
           <div className="lg:w-1/2">
             <h2 className="text-4xl font-serif font-bold text-luxury-dark mb-4">Paradise Location</h2>
             <p className="text-gray-600 mb-6">
-              Located in the stunning Pereybere area, Luxora Villa offers the perfect blend of privacy and accessibility. Just a 2-minute walk from the famous Pereybere Beach, known for its clear blue waters and white sand.
+              Located in the beautiful Grand Baie area, Luxora Villa offers an exquisite blend of privacy and convenience. Nestled in a serene neighborhood just minutes from the breathtaking beaches of northern Mauritius.
             </p>
             
             <div className="space-y-4 mb-8">
@@ -50,8 +50,8 @@ const Location = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-serif font-bold text-lg">Beachfront Access</h3>
-                  <p className="text-gray-600">Just a 2-minute walk to Pereybere Beach, one of the most beautiful beaches in Mauritius.</p>
+                  <h3 className="font-serif font-bold text-lg">Beach Access</h3>
+                  <p className="text-gray-600">Just a short 5-minute drive to Grand Baie Beach and other pristine beaches in northern Mauritius.</p>
                 </div>
               </div>
               
@@ -63,7 +63,7 @@ const Location = () => {
                 </div>
                 <div>
                   <h3 className="font-serif font-bold text-lg">Local Shopping</h3>
-                  <p className="text-gray-600">5 minutes from Super U shopping mall and local markets for fresh produce and souvenirs.</p>
+                  <p className="text-gray-600">Close proximity to Grand Baie La Croisette shopping mall and local markets offering fresh produce and souvenirs.</p>
                 </div>
               </div>
               
@@ -87,12 +87,12 @@ const Location = () => {
                 </div>
                 <div>
                   <h3 className="font-serif font-bold text-lg">Transport</h3>
-                  <p className="text-gray-600">Easy access to public transportation and 1 hour drive from Sir Seewoosagur Ramgoolam International Airport.</p>
+                  <p className="text-gray-600">Easy access to public transportation and approximately 1 hour drive from Sir Seewoosagur Ramgoolam International Airport.</p>
                 </div>
               </div>
             </div>
             
-            <a href="https://www.google.com/maps/search/Pereybere+Mauritius/@-19.9895,57.5871,15z" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.google.com/maps/place/20%C2%B000'13.7%22S+57%C2%B036'26.7%22E/@-20.003798,57.6067819,252m/data=!3m2!1e3!4b1!4m4!3m3!8m2!3d-20.003798!4d57.607427" target="_blank" rel="noopener noreferrer">
               <Button className="bg-luxury-blue hover:bg-opacity-90 text-white font-semibold">
                 Open in Google Maps
               </Button>
@@ -104,7 +104,7 @@ const Location = () => {
               {mapLoaded ? (
                 <MapContainer 
                   center={[latitude, longitude]} 
-                  zoom={14} 
+                  zoom={15} 
                   scrollWheelZoom={false} 
                   style={{ height: '100%', width: '100%' }}
                 >
@@ -116,7 +116,7 @@ const Location = () => {
                     <Popup>
                       <div className="p-1">
                         <h3 className="font-serif font-bold">Luxora Villa</h3>
-                        <p>Pereybere, Mauritius</p>
+                        <p>Grand Baie, Mauritius</p>
                       </div>
                     </Popup>
                   </Marker>
@@ -130,7 +130,7 @@ const Location = () => {
               )}
             </Card>
             <div className="mt-4 text-center">
-              <p className="text-luxury-dark font-serif">Luxora Villa, Pereybere, Mauritius</p>
+              <p className="text-luxury-dark font-serif">Luxora Villa, Grand Baie, Mauritius</p>
             </div>
           </div>
         </div>
