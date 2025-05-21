@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
-import { Map, Navigation, NavigationCheck } from 'lucide-react';
+import { Navigation } from 'lucide-react';
 import L from 'leaflet';
 
 // Fix for default Leaflet icons
