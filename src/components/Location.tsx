@@ -1,8 +1,53 @@
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Card, CardContent } from "@/components/ui/card";
 
 const Location = () => {
+  const [mapboxToken, setMapboxToken] = useState<string>('');
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const map = useRef<any>(null);
+  
+  // Pereybere, Mauritius coordinates
+  const longitude = 57.5871;
+  const latitude = -19.9895;
+  
+  useEffect(() => {
+    const loadMapbox = async () => {
+      if (mapboxToken && mapContainer.current && !map.current) {
+        const mapboxgl = await import('mapbox-gl');
+        import('mapbox-gl/dist/mapbox-gl.css');
+        
+        mapboxgl.default.accessToken = mapboxToken;
+        
+        map.current = new mapboxgl.default.Map({
+          container: mapContainer.current,
+          style: 'mapbox://styles/mapbox/streets-v11',
+          center: [longitude, latitude],
+          zoom: 14
+        });
+        
+        // Add navigation controls
+        map.current.addControl(new mapboxgl.default.NavigationControl(), 'top-right');
+        
+        // Add marker for the villa
+        new mapboxgl.default.Marker({ color: "#D4AF37" })
+          .setLngLat([longitude, latitude])
+          .setPopup(new mapboxgl.default.Popup().setHTML("<h3 class='font-serif'>Luxora Villa</h3><p>Pereybere, Mauritius</p>"))
+          .addTo(map.current);
+      }
+    };
+    
+    loadMapbox();
+    
+    return () => {
+      if (map.current) {
+        map.current.remove();
+      }
+    };
+  }, [mapboxToken]);
+
   return (
     <section id="location" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -10,7 +55,7 @@ const Location = () => {
           <div className="lg:w-1/2">
             <h2 className="text-4xl font-serif font-bold text-luxury-dark mb-4">Paradise Location</h2>
             <p className="text-gray-600 mb-6">
-              Located in the stunning Pereybere area, Luxora Villa offers the perfect blend of privacy and accessibility. Enjoy proximity to beautiful beaches, local attractions, and essential conveniences.
+              Located in the stunning Pereybere area, Luxora Villa offers the perfect blend of privacy and accessibility. Just a 2-minute walk from the famous Pereybere Beach, known for its clear blue waters and white sand.
             </p>
             
             <div className="space-y-4 mb-8">
@@ -23,7 +68,7 @@ const Location = () => {
                 </div>
                 <div>
                   <h3 className="font-serif font-bold text-lg">Beachfront Access</h3>
-                  <p className="text-gray-600">Just a 5-minute walk to Pereybere Beach, one of the most beautiful beaches in Mauritius.</p>
+                  <p className="text-gray-600">Just a 2-minute walk to Pereybere Beach, one of the most beautiful beaches in Mauritius.</p>
                 </div>
               </div>
               
@@ -35,7 +80,7 @@ const Location = () => {
                 </div>
                 <div>
                   <h3 className="font-serif font-bold text-lg">Local Shopping</h3>
-                  <p className="text-gray-600">Convenient access to local markets, supermarkets, and shopping centers.</p>
+                  <p className="text-gray-600">5 minutes from Super U shopping mall and local markets for fresh produce and souvenirs.</p>
                 </div>
               </div>
               
@@ -47,33 +92,66 @@ const Location = () => {
                 </div>
                 <div>
                   <h3 className="font-serif font-bold text-lg">Restaurants & Dining</h3>
-                  <p className="text-gray-600">Numerous gourmet restaurants and local eateries within a short distance.</p>
+                  <p className="text-gray-600">Numerous gourmet restaurants and local eateries within a short distance, offering authentic Mauritian cuisine.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <div className="bg-luxury-gold rounded-full p-2 mr-4 mt-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 8a3 3 0 110-6 3 3 0 010 6z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-serif font-bold text-lg">Transport</h3>
+                  <p className="text-gray-600">Easy access to public transportation and 1 hour drive from Sir Seewoosagur Ramgoolam International Airport.</p>
                 </div>
               </div>
             </div>
             
-            <Button className="bg-luxury-blue hover:bg-opacity-90 text-white font-semibold">
-              View on Map
-            </Button>
+            <a href="https://www.google.com/maps/search/Pereybere+Mauritius/@-19.9895,57.5871,15z" target="_blank" rel="noopener noreferrer">
+              <Button className="bg-luxury-blue hover:bg-opacity-90 text-white font-semibold">
+                Open in Google Maps
+              </Button>
+            </a>
           </div>
           
           <div className="lg:w-1/2">
-            <div className="rounded-lg overflow-hidden shadow-xl">
-              {/* This would be replaced with an actual map in a real implementation */}
-              <div className="relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1500&q=80" 
-                  alt="Luxora Villa Location" 
-                  className="w-full h-[400px] object-cover"
-                />
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <div className="bg-luxury-gold rounded-full h-8 w-8 animate-pulse"></div>
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full h-4 w-4"></div>
+            <Card className="overflow-hidden shadow-xl h-[450px]">
+              {mapboxToken ? (
+                <div ref={mapContainer} className="w-full h-[450px]" />
+              ) : (
+                <div className="p-6 flex flex-col items-center justify-center h-full bg-gray-50">
+                  <h3 className="text-2xl font-serif mb-4 text-center">Interactive Map</h3>
+                  <p className="mb-4 text-center text-gray-600">Enter your Mapbox API key to view the interactive map of Luxora Villa's location.</p>
+                  <div className="w-full max-w-md">
+                    <input
+                      type="text"
+                      placeholder="Enter your Mapbox public token"
+                      className="w-full p-3 border border-gray-300 rounded mb-3"
+                      value={mapboxToken}
+                      onChange={(e) => setMapboxToken(e.target.value)}
+                    />
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <p className="text-xs text-center text-gray-500">
+                            Where can I find my Mapbox token?
+                          </p>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="w-[250px] text-xs">
+                            Create an account at mapbox.com and get your public token from the Account dashboard.
+                          </p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-white p-4">
-                <p className="font-serif">Luxora Villa, Pereybere, Mauritius</p>
-              </div>
+              )}
+            </Card>
+            <div className="mt-4 text-center">
+              <p className="text-luxury-dark font-serif">Luxora Villa, Pereybere, Mauritius</p>
             </div>
           </div>
         </div>
