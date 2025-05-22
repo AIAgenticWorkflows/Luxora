@@ -109,7 +109,7 @@ const Features = () => {
             </div>
             <h3 className="text-xl font-serif font-bold mb-2">Beach Proximity</h3>
             <p className="text-gray-600">
-              Just a short walk to the beautiful beaches of Pereybere.
+              Just 5 minutes by car to the beautiful beaches of Pereybere.
             </p>
           </div>
         </div>
