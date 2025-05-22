@@ -36,6 +36,36 @@ npm i
 npm run dev
 ```
 
+### Setting up the Contact Form (EmailJS)
+
+The contact form in this project uses EmailJS to send inquiries directly to your email address. To make it work, you need to set up your EmailJS account and configure the project with your credentials.
+
+1.  **Create an Account**: If you don't have one already, sign up for a free account at [EmailJS](https://www.emailjs.com).
+2.  **Get Your Credentials**: From your EmailJS dashboard:
+    *   Add a new email **Service** (e.g., Gmail, Outlook) and note its **Service ID**.
+    *   Create an email **Template** and note its **Template ID**.
+    *   Find your **Public Key** (usually under Account > API Keys or similar).
+3.  **Configure Email Template**: Ensure the email template you created in EmailJS is set up to accept the following dynamic variables. These are the fields from the contact form:
+    *   `name`
+    *   `email`
+    *   `checkin`
+    *   `checkout`
+    *   `guests`
+    *   `message`
+    For example, in your EmailJS template body, you might use `{{name}}` to display the sender's name, `{{message}}` for the message content, etc.
+4.  **Update Project Configuration**:
+    *   Open the file `src/components/Contact.tsx` in your project.
+    *   Locate the following lines of code within the `handleSubmit` function:
+        ```javascript
+        await emailjs.send(
+          'YOUR_SERVICE_ID', 
+          'YOUR_TEMPLATE_ID', 
+          { /* template parameters */ }, 
+          'YOUR_PUBLIC_KEY'
+        );
+        ```
+    *   Replace the placeholder strings `'YOUR_SERVICE_ID'`, `'YOUR_TEMPLATE_ID'`, and `'YOUR_PUBLIC_KEY'` with the actual credentials you obtained from your EmailJS account.
+
 **Edit a file directly in GitHub**
 
 - Navigate to the desired file(s).

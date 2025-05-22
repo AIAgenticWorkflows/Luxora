@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -33,20 +34,20 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Create email content
-      const emailSubject = `New Booking Inquiry from ${formData.name}`;
-      const emailBody = `
-        Name: ${formData.name}
-        Email: ${formData.email}
-        Check-in: ${formData.checkin}
-        Check-out: ${formData.checkout}
-        Guests: ${formData.guests}
-        Message: ${formData.message}
-      `;
-      
-      // Use mailto link to open email client
-      const mailtoLink = `mailto:n.appanah@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-      window.location.href = mailtoLink;
+      // Send email using EmailJS
+      await emailjs.send(
+        'YOUR_SERVICE_ID', 
+        'YOUR_TEMPLATE_ID', 
+        { // Template parameters
+          name: formData.name,
+          email: formData.email,
+          checkin: formData.checkin,
+          checkout: formData.checkout,
+          guests: formData.guests,
+          message: formData.message
+        }, 
+        'YOUR_PUBLIC_KEY'
+      );
       
       toast({
         title: t('inquiry.success.title'),
