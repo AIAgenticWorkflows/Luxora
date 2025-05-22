@@ -14,12 +14,14 @@ const translations = {
     
     // Hero
     'hero.title': 'Experience Luxury in Paradise',
-    'hero.subtitle': 'Exclusive beach villa in Pereybere, Mauritius',
+    'hero.subtitle': 'Exclusive villa in Pereybere, Mauritius',
     'hero.cta': 'Book Now',
+    'hero.description': 'Experience luxury living in our stunning modern villa with world-class amenities, just minutes away from beautiful beaches.',
     
     // Gallery
     'gallery.title': 'Explore Our Villa',
-    'gallery.description': 'Experience the luxury and comfort of our stunning beachside villa',
+    'gallery.description': 'Experience the luxury and comfort of our stunning modern villa',
+    'gallery.viewButton': 'View Gallery',
     
     // Features
     'features.title': 'Villa Features',
@@ -27,9 +29,9 @@ const translations = {
     
     // Location
     'location.title': 'Paradise Location',
-    'location.description': 'Located in the stunning Grand Baie area, Luxora Villa offers the perfect blend of privacy and accessibility.',
-    'location.beach': 'Beachfront Access',
-    'location.beachDesc': 'Easy access to some of the most beautiful beaches in Mauritius.',
+    'location.description': 'Located in the beautiful Grand Baie area, Luxora Villa offers an exquisite blend of privacy and convenience.',
+    'location.beach': 'Beach Access',
+    'location.beachDesc': 'Just a short distance to some of the most beautiful beaches in Mauritius.',
     
     // Booking
     'booking.title': 'Book Your Stay',
@@ -75,12 +77,14 @@ const translations = {
     
     // Hero
     'hero.title': 'Découvrez le Luxe au Paradis',
-    'hero.subtitle': 'Villa exclusive en bord de plage à Pereybere, Maurice',
+    'hero.subtitle': 'Villa exclusive à Pereybere, Maurice',
     'hero.cta': 'Réserver',
+    'hero.description': 'Découvrez le luxe dans notre superbe villa moderne avec des équipements de classe mondiale, à quelques minutes des magnifiques plages.',
     
     // Gallery
     'gallery.title': 'Explorez Notre Villa',
-    'gallery.description': 'Découvrez le luxe et le confort de notre magnifique villa au bord de la mer',
+    'gallery.description': 'Découvrez le luxe et le confort de notre magnifique villa moderne',
+    'gallery.viewButton': 'Voir la Galerie',
     
     // Features
     'features.title': 'Caractéristiques de la Villa',
@@ -90,7 +94,7 @@ const translations = {
     'location.title': 'Emplacement Paradisiaque',
     'location.description': 'Située dans la magnifique région de Grand Baie, Luxora Villa offre un mélange parfait d\'intimité et d\'accessibilité.',
     'location.beach': 'Accès à la Plage',
-    'location.beachDesc': 'Accès facile à certaines des plus belles plages de l\'île Maurice.',
+    'location.beachDesc': 'À courte distance de certaines des plus belles plages de l\'île Maurice.',
     
     // Booking
     'booking.title': 'Réservez Votre Séjour',

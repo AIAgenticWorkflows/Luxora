@@ -1,8 +1,11 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const HeroSection = () => {
+  const { t } = useLanguage();
+  
   return (
     <div className="relative h-screen w-full">
       {/* Hero Background */}
@@ -24,17 +27,17 @@ const HeroSection = () => {
               Pereybere, Mauritius
             </h2>
             <p className="text-xl text-white mb-8 max-w-md">
-              Experience luxury living in our stunning beachside villa with spectacular ocean views and world-class amenities.
+              Experience luxury living in our stunning modern villa with world-class amenities, just minutes away from beautiful beaches.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="#gallery">
                 <Button className="bg-luxury-gold hover:bg-opacity-90 text-white font-semibold px-8 py-6 text-lg w-full sm:w-auto">
-                  View Gallery
+                  {t('gallery.viewButton')}
                 </Button>
               </a>
               <a href="#contact">
                 <Button variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-luxury-dark px-8 py-6 text-lg w-full sm:w-auto">
-                  Book Now
+                  {t('hero.cta')}
                 </Button>
               </a>
             </div>

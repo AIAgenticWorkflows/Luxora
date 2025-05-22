@@ -7,6 +7,7 @@ import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
 import { Navigation } from 'lucide-react';
 import L from 'leaflet';
+import { useLanguage } from '@/hooks/useLanguage';
 
 // Fix for default Leaflet icons
 const fixLeafletIcon = () => {
@@ -21,6 +22,7 @@ const fixLeafletIcon = () => {
 
 const Location = () => {
   const [mapLoaded, setMapLoaded] = useState(false);
+  const { t } = useLanguage();
   
   // Updated precise coordinates for Luxora Villa
   const longitude = 57.607427;
@@ -36,7 +38,7 @@ const Location = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-12 items-center">
           <div className="lg:w-1/2">
-            <h2 className="text-4xl font-serif font-bold text-luxury-dark mb-4">Paradise Location</h2>
+            <h2 className="text-4xl font-serif font-bold text-luxury-dark mb-4">{t('location.title')}</h2>
             <p className="text-gray-600 mb-6">
               Located in the beautiful Grand Baie area, Luxora Villa offers an exquisite blend of privacy and convenience. Nestled in a serene neighborhood just minutes from the breathtaking beaches of northern Mauritius.
             </p>
@@ -50,7 +52,7 @@ const Location = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-serif font-bold text-lg">Beach Access</h3>
+                  <h3 className="font-serif font-bold text-lg">{t('location.beach')}</h3>
                   <p className="text-gray-600">Just a short 5-minute drive to Grand Baie Beach and other pristine beaches in northern Mauritius.</p>
                 </div>
               </div>
