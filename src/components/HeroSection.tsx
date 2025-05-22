@@ -21,13 +21,13 @@ const HeroSection = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl animate-fade-in">
             <h1 className="text-5xl md:text-6xl text-white font-serif font-bold mb-4">
-              Luxora Villa
+              {t('hero.mainBrand')}
             </h1>
             <h2 className="text-2xl md:text-3xl text-white font-serif mb-2">
-              Pereybere, Mauritius
+              {t('hero.locationTag')}
             </h2>
             <p className="text-xl text-white mb-8 max-w-md">
-              Experience luxury living in our stunning modern villa with world-class amenities, just minutes away from beautiful beaches.
+              {t('hero.description')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="#gallery">

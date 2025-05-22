@@ -1,97 +1,99 @@
 
 import React, { useState } from 'react';
+import { useLanguage } from '@/hooks/useLanguage';
 
 // Gallery images using the uploaded images
-const galleryImages = [
+const galleryImagesData = [
   {
     id: 1,
     src: '/lovable-uploads/06ef031e-998e-41b5-a951-2c8ba14df591.png',
-    alt: 'Villa Exterior with Pool',
+    altKey: 'gallery.imageAlt.villaExteriorPool',
     category: 'exterior'
   },
   {
     id: 2,
     src: '/lovable-uploads/9f7fb5e6-83cd-4297-bf36-c7c208a66403.png',
-    alt: 'Pool Area Seating',
+    altKey: 'gallery.imageAlt.poolAreaSeating',
     category: 'exterior'
   },
   {
     id: 3,
     src: '/lovable-uploads/17d507de-ba3a-4058-abe3-c10f9cde1650.png',
-    alt: 'Pereybere Beach Sunset',
+    altKey: 'gallery.imageAlt.pereybereSunset',
     category: 'location'
   },
   {
     id: 4,
     src: '/lovable-uploads/fe796886-fbef-4626-bb98-2831ba06f4e3.png',
-    alt: 'Bedroom with Pool View',
+    altKey: 'gallery.imageAlt.bedroomPoolView',
     category: 'bedroom'
   },
   {
     id: 5,
     src: '/lovable-uploads/b20acf9f-79d7-4a12-b87d-ab534f2d939a.png',
-    alt: 'Living Room with Pool View',
+    altKey: 'gallery.imageAlt.livingRoomPoolView',
     category: 'interior'
   },
   {
     id: 6,
     src: '/lovable-uploads/77624a5a-f93f-4f78-bfb8-c6d88cf9d7d1.png',
-    alt: 'Modern Kitchen and Dining Area',
+    altKey: 'gallery.imageAlt.modernKitchenDining',
     category: 'kitchen'
   },
   {
     id: 7,
     src: '/lovable-uploads/0a540aea-f68a-4d87-b064-23c8a87b6549.png',
-    alt: 'Luxury Bathroom with Jacuzzi',
+    altKey: 'gallery.imageAlt.luxuryBathroomJacuzzi',
     category: 'bathroom'
   },
   {
     id: 8,
     src: '/lovable-uploads/8d3df2d7-ed3d-4430-9084-a928a3ae4679.png',
-    alt: 'Modern Bedroom',
+    altKey: 'gallery.imageAlt.modernBedroom',
     category: 'bedroom'
   },
   {
     id: 9,
     src: '/lovable-uploads/6e9e28a8-4cd6-431c-9d15-c15ad821f630.png',
-    alt: 'Bedroom with Pool Access',
+    altKey: 'gallery.imageAlt.bedroomPoolAccess',
     category: 'bedroom'
   },
   {
     id: 10,
     src: '/lovable-uploads/42ac3b94-9f10-49ef-8238-94f313a1bde6.png',
-    alt: 'Second Bedroom',
+    altKey: 'gallery.imageAlt.secondBedroom',
     category: 'bedroom'
   },
   {
     id: 11,
     src: '/lovable-uploads/abb57903-7d11-459c-9ffe-7005a3f030b6.png',
-    alt: 'Pool View',
+    altKey: 'gallery.imageAlt.poolView',
     category: 'pool'
   },
   {
     id: 12,
     src: '/lovable-uploads/e3a75e0b-1d08-435c-a198-a5bb92cd996e.png',
-    alt: 'Garden Area',
+    altKey: 'gallery.imageAlt.gardenArea',
     category: 'exterior'
   }
 ];
 
 const Gallery = () => {
-  const [selectedImage, setSelectedImage] = useState(galleryImages[0]);
+  const { t } = useLanguage();
+  const [selectedImage, setSelectedImage] = useState(galleryImagesData[0]);
   const [filter, setFilter] = useState('all');
 
   const filteredImages = filter === 'all' 
-    ? galleryImages 
-    : galleryImages.filter(img => img.category === filter);
+    ? galleryImagesData 
+    : galleryImagesData.filter(img => img.category === filter);
 
   return (
     <section id="gallery" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-serif font-bold text-luxury-dark mb-4">Property Gallery</h2>
+          <h2 className="text-4xl font-serif font-bold text-luxury-dark mb-4">{t('gallery.mainTitle')}</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Explore our stunning spaces through our gallery. Each image showcases the luxurious details and amenities of Luxora Villa.
+            {t('gallery.mainDescription')}
           </p>
           
           {/* Gallery filters */}
@@ -104,7 +106,7 @@ const Gallery = () => {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              All
+              {t('gallery.filter.all')}
             </button>
             <button 
               onClick={() => setFilter('exterior')}
@@ -114,7 +116,7 @@ const Gallery = () => {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              Exterior
+              {t('gallery.filter.exterior')}
             </button>
             <button 
               onClick={() => setFilter('pool')}
@@ -124,7 +126,7 @@ const Gallery = () => {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              Pool
+              {t('gallery.filter.pool')}
             </button>
             <button 
               onClick={() => setFilter('bedroom')}
@@ -134,7 +136,7 @@ const Gallery = () => {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              Bedrooms
+              {t('gallery.filter.bedrooms')}
             </button>
             <button 
               onClick={() => setFilter('bathroom')}
@@ -144,7 +146,7 @@ const Gallery = () => {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              Bathrooms
+              {t('gallery.filter.bathrooms')}
             </button>
             <button 
               onClick={() => setFilter('kitchen')}
@@ -154,7 +156,7 @@ const Gallery = () => {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              Kitchen
+              {t('gallery.filter.kitchen')}
             </button>
             <button 
               onClick={() => setFilter('interior')}
@@ -164,7 +166,7 @@ const Gallery = () => {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              Interior
+              {t('gallery.filter.interior')}
             </button>
             <button 
               onClick={() => setFilter('location')}
@@ -174,7 +176,7 @@ const Gallery = () => {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              Location
+              {t('gallery.filter.location')}
             </button>
           </div>
         </div>
@@ -184,11 +186,11 @@ const Gallery = () => {
           <div className="gallery-main-image h-[500px] animate-fade-in relative rounded-lg overflow-hidden">
             <img 
               src={selectedImage.src} 
-              alt={selectedImage.alt} 
+              alt={t(selectedImage.altKey)} 
               className="w-full h-full object-cover"
             />
             <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent">
-              <p className="text-white text-lg font-serif">{selectedImage.alt}</p>
+              <p className="text-white text-lg font-serif">{t(selectedImage.altKey)}</p>
             </div>
           </div>
         </div>
@@ -205,7 +207,7 @@ const Gallery = () => {
             >
               <img 
                 src={image.src} 
-                alt={image.alt} 
+                alt={t(image.altKey)} 
                 className="w-full h-full object-cover"
               />
             </div>

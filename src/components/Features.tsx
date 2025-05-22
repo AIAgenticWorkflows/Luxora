@@ -1,15 +1,18 @@
 
 import React from 'react';
 import { Bed, Bath, Tv, Wifi, Sun, Utensils } from 'lucide-react';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const Features = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="features" className="py-20 bg-luxury-beige">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-serif font-bold text-luxury-dark mb-4">Villa Features</h2>
+          <h2 className="text-4xl font-serif font-bold text-luxury-dark mb-4">{t('features.title')}</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Experience luxury living with our premium amenities and carefully designed spaces.
+            {t('features.description')}
           </p>
         </div>
         
@@ -19,9 +22,9 @@ const Features = () => {
             <div className="amenity-icon">
               <Bed size={24} />
             </div>
-            <h3 className="text-xl font-serif font-bold mb-2">3 Spacious Bedrooms</h3>
+            <h3 className="text-xl font-serif font-bold mb-2">{t('features.bedrooms.title')}</h3>
             <p className="text-gray-600">
-              Comfortable bedrooms with air conditioning, luxurious linens, and ample storage space.
+              {t('features.bedrooms.description')}
             </p>
           </div>
           
@@ -30,9 +33,9 @@ const Features = () => {
             <div className="amenity-icon">
               <Bath size={24} />
             </div>
-            <h3 className="text-xl font-serif font-bold mb-2">2 Modern Bathrooms</h3>
+            <h3 className="text-xl font-serif font-bold mb-2">{t('features.bathrooms.title')}</h3>
             <p className="text-gray-600">
-              Elegant bathrooms featuring jacuzzi, premium fixtures, and complimentary toiletries.
+              {t('features.bathrooms.description')}
             </p>
           </div>
           
@@ -41,9 +44,9 @@ const Features = () => {
             <div className="amenity-icon">
               <Utensils size={24} />
             </div>
-            <h3 className="text-xl font-serif font-bold mb-2">Fully Equipped Kitchen</h3>
+            <h3 className="text-xl font-serif font-bold mb-2">{t('features.kitchen.title')}</h3>
             <p className="text-gray-600">
-              Modern kitchen with stove, dishwasher, oven, and an additional grease kitchen for convenience.
+              {t('features.kitchen.description')}
             </p>
           </div>
           
@@ -52,9 +55,9 @@ const Features = () => {
             <div className="amenity-icon">
               <Sun size={24} />
             </div>
-            <h3 className="text-xl font-serif font-bold mb-2">Private Pool</h3>
+            <h3 className="text-xl font-serif font-bold mb-2">{t('features.pool.title')}</h3>
             <p className="text-gray-600">
-              Enjoy our private pool with direct access from the bedroom or living room.
+              {t('features.pool.description')}
             </p>
           </div>
           
@@ -63,9 +66,9 @@ const Features = () => {
             <div className="amenity-icon">
               <Sun size={24} />
             </div>
-            <h3 className="text-xl font-serif font-bold mb-2">Rooftop Access</h3>
+            <h3 className="text-xl font-serif font-bold mb-2">{t('features.rooftop.title')}</h3>
             <p className="text-gray-600">
-              Relax or entertain on our spacious rooftop with beautiful views.
+              {t('features.rooftop.description')}
             </p>
           </div>
           
@@ -74,9 +77,9 @@ const Features = () => {
             <div className="amenity-icon">
               <Tv size={24} />
             </div>
-            <h3 className="text-xl font-serif font-bold mb-2">Smart Living Room</h3>
+            <h3 className="text-xl font-serif font-bold mb-2">{t('features.livingRoom.title')}</h3>
             <p className="text-gray-600">
-              Comfortable living area featuring a smart TV and Google Home integration.
+              {t('features.livingRoom.description')}
             </p>
           </div>
           
@@ -85,9 +88,9 @@ const Features = () => {
             <div className="amenity-icon">
               <Wifi size={24} />
             </div>
-            <h3 className="text-xl font-serif font-bold mb-2">High-Speed WiFi</h3>
+            <h3 className="text-xl font-serif font-bold mb-2">{t('features.wifi.title')}</h3>
             <p className="text-gray-600">
-              Stay connected with complimentary high-speed wireless internet throughout the villa.
+              {t('features.wifi.description')}
             </p>
           </div>
           
@@ -96,9 +99,9 @@ const Features = () => {
             <div className="amenity-icon">
               <Sun size={24} />
             </div>
-            <h3 className="text-xl font-serif font-bold mb-2">Outdoor Lounge</h3>
+            <h3 className="text-xl font-serif font-bold mb-2">{t('features.lounge.title')}</h3>
             <p className="text-gray-600">
-              Beautiful outdoor spaces for relaxation and entertainment.
+              {t('features.lounge.description')}
             </p>
           </div>
           
@@ -107,9 +110,9 @@ const Features = () => {
             <div className="amenity-icon">
               <Sun size={24} />
             </div>
-            <h3 className="text-xl font-serif font-bold mb-2">Beach Proximity</h3>
+            <h3 className="text-xl font-serif font-bold mb-2">{t('features.beachProximity.title')}</h3>
             <p className="text-gray-600">
-              Just 5 minutes by car to the beautiful beaches of Pereybere.
+              {t('features.beachProximity.description')}
             </p>
           </div>
         </div>

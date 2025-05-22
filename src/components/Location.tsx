@@ -40,7 +40,7 @@ const Location = () => {
           <div className="lg:w-1/2">
             <h2 className="text-4xl font-serif font-bold text-luxury-dark mb-4">{t('location.title')}</h2>
             <p className="text-gray-600 mb-6">
-              Located in the beautiful Grand Baie area, Luxora Villa offers an exquisite blend of privacy and convenience. Nestled in a serene neighborhood just minutes from the breathtaking beaches of northern Mauritius.
+              {t('location.description')}
             </p>
             
             <div className="space-y-4 mb-8">
@@ -53,7 +53,7 @@ const Location = () => {
                 </div>
                 <div>
                   <h3 className="font-serif font-bold text-lg">{t('location.beach')}</h3>
-                  <p className="text-gray-600">Just a short 5-minute drive to Grand Baie Beach and other pristine beaches in northern Mauritius.</p>
+                  <p className="text-gray-600">{t('location.beachDesc')}</p>
                 </div>
               </div>
               
@@ -64,8 +64,8 @@ const Location = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-serif font-bold text-lg">Local Shopping</h3>
-                  <p className="text-gray-600">Close proximity to Grand Baie La Croisette shopping mall and local markets offering fresh produce and souvenirs.</p>
+                  <h3 className="font-serif font-bold text-lg">{t('location.shopping.title')}</h3>
+                  <p className="text-gray-600">{t('location.shopping.description')}</p>
                 </div>
               </div>
               
@@ -76,8 +76,8 @@ const Location = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-serif font-bold text-lg">Restaurants & Dining</h3>
-                  <p className="text-gray-600">Numerous gourmet restaurants and local eateries within a short distance, offering authentic Mauritian cuisine.</p>
+                  <h3 className="font-serif font-bold text-lg">{t('location.dining.title')}</h3>
+                  <p className="text-gray-600">{t('location.dining.description')}</p>
                 </div>
               </div>
               
@@ -88,15 +88,15 @@ const Location = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-serif font-bold text-lg">Transport</h3>
-                  <p className="text-gray-600">Easy access to public transportation and approximately 1 hour drive from Sir Seewoosagur Ramgoolam International Airport.</p>
+                  <h3 className="font-serif font-bold text-lg">{t('location.transport.title')}</h3>
+                  <p className="text-gray-600">{t('location.transport.description')}</p>
                 </div>
               </div>
             </div>
             
             <a href="https://www.google.com/maps/place/20%C2%B000'13.7%22S+57%C2%B036'26.7%22E/@-20.003798,57.6067819,252m/data=!3m2!1e3!4b1!4m4!3m3!8m2!3d-20.003798!4d57.607427" target="_blank" rel="noopener noreferrer">
               <Button className="bg-luxury-blue hover:bg-opacity-90 text-white font-semibold">
-                Open in Google Maps
+                {t('location.mapButton')}
               </Button>
             </a>
           </div>
@@ -117,8 +117,8 @@ const Location = () => {
                   <Marker position={[latitude, longitude]}>
                     <Popup>
                       <div className="p-1">
-                        <h3 className="font-serif font-bold">Luxora Villa</h3>
-                        <p>Grand Baie, Mauritius</p>
+                        <h3 className="font-serif font-bold">{t('location.mapPopup.title')}</h3>
+                        <p>{t('location.mapPopup.location')}</p>
                       </div>
                     </Popup>
                   </Marker>
@@ -126,13 +126,13 @@ const Location = () => {
               ) : (
                 <div className="p-6 flex flex-col items-center justify-center h-full bg-gray-50">
                   <Navigation className="h-16 w-16 text-luxury-gold mb-4" />
-                  <h3 className="text-2xl font-serif mb-2 text-center">Loading Map...</h3>
-                  <p className="text-center text-gray-600">Please wait while we load the location map.</p>
+                  <h3 className="text-2xl font-serif mb-2 text-center">{t('location.mapLoading.title')}</h3>
+                  <p className="text-center text-gray-600">{t('location.mapLoading.description')}</p>
                 </div>
               )}
             </Card>
             <div className="mt-4 text-center">
-              <p className="text-luxury-dark font-serif">Luxora Villa, Grand Baie, Mauritius</p>
+              <p className="text-luxury-dark font-serif">{t('location.mapCaption')}</p>
             </div>
           </div>
         </div>

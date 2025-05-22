@@ -34,8 +34,8 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <a href="#" className="font-serif text-2xl font-bold">
-            <span className={isScrolled ? 'text-luxury-dark' : 'text-white'}>Luxora</span>
-            <span className="text-luxury-gold"> Villa</span>
+            <span className={isScrolled ? 'text-luxury-dark' : 'text-white'}>{t('nav.logo.part1')}</span>
+            <span className="text-luxury-gold">{t('nav.logo.part2')}</span>
           </a>
           
           {/* Desktop Navigation */}

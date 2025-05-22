@@ -12,9 +12,9 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="font-serif text-2xl font-bold mb-4">Luxora Villa</h3>
+            <h3 className="font-serif text-2xl font-bold mb-4">{t('footer.brandName')}</h3>
             <p className="mb-4 text-gray-300">
-              Experience luxury living in our stunning beachside villa in Grand Baie, Mauritius.
+              {t('footer.brandDescription')}
             </p>
             <div className="flex space-x-4">
               {/* Social Media Icons */}
@@ -89,7 +89,7 @@ const Footer = () => {
         <div className="border-t border-gray-700 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 mb-4 md:mb-0">
-              &copy; {currentYear} Luxora Villa. {t('footer.copyright')}
+              &copy; {currentYear} {t('footer.copyrightBrand')} {t('footer.copyright')}
             </p>
             <div className="flex space-x-6">
               <a href="#" className="text-gray-400 hover:text-luxury-gold transition-colors">
