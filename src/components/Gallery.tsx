@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 // Gallery images using the uploaded images
 const galleryImages = [
@@ -180,33 +181,45 @@ const Gallery = () => {
         </div>
         
         <div className="mb-8">
-          {/* Main selected image */}
-          <div className="gallery-main-image h-[500px] animate-fade-in relative rounded-lg overflow-hidden">
-            <img 
-              src={selectedImage.src} 
-              alt={selectedImage.alt} 
-              className="w-full h-full object-cover"
-            />
+          {/* Main selected image with improved clarity and contrast */}
+          <div className="gallery-main-image h-[500px] animate-fade-in relative rounded-lg overflow-hidden shadow-xl">
+            <AspectRatio ratio={16/9}>
+              <img 
+                src={selectedImage.src} 
+                alt={selectedImage.alt} 
+                className="w-full h-full object-cover object-center brightness-105 contrast-105 shadow-inner"
+                style={{ 
+                  imageRendering: 'high-quality',
+                  transform: 'translateZ(0)', // Force hardware acceleration
+                }}
+              />
+            </AspectRatio>
             <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent">
               <p className="text-white text-lg font-serif">{selectedImage.alt}</p>
             </div>
           </div>
         </div>
         
-        {/* Thumbnail grid */}
+        {/* Thumbnail grid with improved clarity and contrast */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {filteredImages.map((image) => (
             <div 
               key={image.id}
               onClick={() => setSelectedImage(image)}
-              className={`gallery-thumbnail h-[100px] cursor-pointer ${
-                selectedImage.id === image.id ? 'ring-4 ring-luxury-gold' : ''
+              className={`gallery-thumbnail h-[100px] cursor-pointer rounded-lg overflow-hidden transition-all duration-300 ${
+                selectedImage.id === image.id 
+                  ? 'ring-4 ring-luxury-gold shadow-md' 
+                  : 'hover:shadow-md'
               }`}
             >
               <img 
                 src={image.src} 
                 alt={image.alt} 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover brightness-105 contrast-105"
+                style={{ 
+                  imageRendering: 'high-quality',
+                  transform: 'translateZ(0)', // Force hardware acceleration 
+                }}
               />
             </div>
           ))}
