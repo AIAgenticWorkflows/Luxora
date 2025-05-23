@@ -73,17 +73,49 @@ const Contact = () => {
         guests: 2,
         message: ''
       });
-      setRecaptchaToken(null);
+      setRecaptchaToken(null); // Reset reCAPTCHA token as well
       
       toast({
         title: t('inquiry.success.title'),
         description: t('inquiry.success.description'),
       });
-    } catch (error) {
-      console.error('Error submitting form:', error);
+    } catch (error: any) {
+      console.error('Raw error submitting form:', error); // Log the raw error
+
+      let toastTitle = t('inquiry.error.title');
+      let toastDescription = t('inquiry.error.description');
+
+      if (error && typeof error.message === 'string') {
+        try {
+          // The error.message from supabase.functions.invoke might be the JSON string
+          const parsedError = JSON.parse(error.message);
+
+          if (parsedError && typeof parsedError.error === 'string') {
+            if (parsedError.error === "reCAPTCHA verification failed") {
+              toastDescription = parsedError.details || t('booking.form.recaptchaFailed') || "reCAPTCHA verification failed, please try again.";
+            } else if (parsedError.error === "Failed to send email") {
+              // For "Failed to send email", we give a more generic message to the user
+              // and avoid showing details which might be sensitive.
+              toastDescription = t('inquiry.error.sendFail') || "There was an issue sending your enquiry. Please check your details or contact support if the problem persists.";
+            }
+            // For other parsed errors with a 'details' field, we could use parsedError.details
+            // but the current requirement is to use generic for others.
+            // If parsedError.error is something else but 'details' is present:
+            // else if (parsedError.details) {
+            //   toastDescription = parsedError.details;
+            // }
+          }
+        } catch (parseError) {
+          // If error.message is not a valid JSON string, it might be a network error or other client-side error.
+          console.warn('Could not parse error message as JSON:', parseError);
+          // Fallback to generic error description if parsing fails
+          // toastDescription is already set to t('inquiry.error.description')
+        }
+      }
+      
       toast({
-        title: t('inquiry.error.title'),
-        description: t('inquiry.error.description'),
+        title: toastTitle,
+        description: toastDescription,
         variant: "destructive"
       });
     } finally {
