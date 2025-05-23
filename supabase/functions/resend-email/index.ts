@@ -107,7 +107,7 @@ serve(async (req) => {
 
     // Send email to property owner
     const ownerEmailResponse = await resend.emails.send({
-      from: "Luxora Booking <onboarding@resend.dev>",
+      from: "nishzone@gmail.com",
       to: ["n.appanah@gmail.com"], // This is hidden in the edge function
       subject: `New Booking Inquiry from ${name}`,
       html: `
@@ -123,7 +123,7 @@ serve(async (req) => {
 
     // Send confirmation email to guest
     const guestEmailResponse = await resend.emails.send({
-      from: "Luxora Booking <onboarding@resend.dev>",
+      from: "nishzone@gmail.com",
       to: [email],
       subject: "Your Booking Inquiry Has Been Received",
       html: `
