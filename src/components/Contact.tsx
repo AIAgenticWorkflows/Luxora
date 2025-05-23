@@ -7,11 +7,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/hooks/useLanguage";
 import { supabase } from "@/integrations/supabase/client";
+import ReCAPTCHA from "react-google-recaptcha";
+
+const RECAPTCHA_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"; // This is Google's test key - replace with your actual key in production
 
 const Contact = () => {
   const { toast } = useToast();
   const { t } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,14 +33,31 @@ const Contact = () => {
     });
   };
 
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!recaptchaToken) {
+      toast({
+        title: t('booking.form.recaptchaRequired') || 'Verification Required',
+        description: t('booking.form.pleaseVerify') || 'Please verify that you are not a robot.',
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      // Send data to Supabase Edge Function
+      // Send data to Supabase Edge Function with recaptcha token
       const { error } = await supabase.functions.invoke('resend-email', {
-        body: formData
+        body: {
+          ...formData,
+          recaptchaToken
+        }
       });
 
       if (error) {
@@ -52,6 +73,7 @@ const Contact = () => {
         guests: 2,
         message: ''
       });
+      setRecaptchaToken(null);
       
       toast({
         title: t('inquiry.success.title'),
@@ -174,10 +196,17 @@ const Contact = () => {
                     onChange={handleChange}
                   />
                 </div>
+
+                <div className="flex justify-center my-6">
+                  <ReCAPTCHA
+                    sitekey={RECAPTCHA_SITE_KEY}
+                    onChange={handleRecaptchaChange}
+                  />
+                </div>
                 
                 <Button 
                   type="submit" 
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !recaptchaToken}
                   className="w-full bg-luxury-gold hover:bg-opacity-90 text-white font-semibold py-6 text-lg"
                 >
                   {isSubmitting ? t('booking.form.sending') : t('booking.form.submit')}

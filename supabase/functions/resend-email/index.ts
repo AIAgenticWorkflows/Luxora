@@ -17,6 +17,28 @@ interface BookingRequest {
   checkout: string;
   guests: number;
   message: string;
+  recaptchaToken: string;
+}
+
+// Function to verify reCAPTCHA token
+async function verifyRecaptcha(token: string): Promise<boolean> {
+  try {
+    const recaptchaSecret = Deno.env.get("RECAPTCHA_SECRET_KEY") || "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"; // This is Google's test key
+    
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `secret=${recaptchaSecret}&response=${token}`,
+    });
+    
+    const data = await response.json();
+    return data.success;
+  } catch (error) {
+    console.error('reCAPTCHA verification error:', error);
+    return false;
+  }
 }
 
 serve(async (req) => {
@@ -26,12 +48,24 @@ serve(async (req) => {
   }
 
   try {
-    const { name, email, checkin, checkout, guests, message }: BookingRequest = await req.json();
+    const { name, email, checkin, checkout, guests, message, recaptchaToken }: BookingRequest = await req.json();
 
     // Validate the required fields
     if (!name || !email || !checkin || !checkout) {
       return new Response(
         JSON.stringify({ error: "Missing required fields" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Verify reCAPTCHA token
+    const isRecaptchaValid = await verifyRecaptcha(recaptchaToken);
+    if (!isRecaptchaValid) {
+      return new Response(
+        JSON.stringify({ error: "reCAPTCHA verification failed" }),
         {
           status: 400,
           headers: { "Content-Type": "application/json", ...corsHeaders },
