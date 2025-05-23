@@ -1,4 +1,25 @@
 
+// Environment Variables Guide for resend-email Edge Function:
+//
+// 1. RESEND_API_KEY:
+//    - Purpose: Mandatory for sending emails via the Resend service.
+//    - How to get: Obtain this key from your Resend account (dashboard at resend.com).
+//    - Setup: Set this as an environment variable in your Supabase project's
+//      Edge Function settings.
+//    - Without it: Email sending will fail.
+//
+// 2. RECAPTCHA_SECRET_KEY:
+//    - Purpose: Mandatory for reCAPTCHA v2 verification in a production environment.
+//    - How to get: Obtain this key from the Google Cloud Console after setting up
+//      reCAPTCHA v2 for your site.
+//    - Setup: Set this as an environment variable in your Supabase project's
+//      Edge Function settings.
+//    - For Testing: If this variable is not set, the function will fall back to
+//      using Google's default test secret key "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe".
+//      This is suitable for testing with Google's test site key on the frontend
+//      ("6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI") but MUST be replaced with your
+//      actual production key for live deployment.
+//
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
 
@@ -21,7 +42,7 @@ interface BookingRequest {
 }
 
 // Function to verify reCAPTCHA token
-async function verifyRecaptcha(token: string): Promise<boolean> {
+async function verifyRecaptcha(token: string): Promise<{ success: boolean; error?: string }> {
   try {
     const recaptchaSecret = Deno.env.get("RECAPTCHA_SECRET_KEY") || "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"; // This is Google's test key
     
@@ -33,11 +54,21 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
       body: `secret=${recaptchaSecret}&response=${token}`,
     });
     
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('reCAPTCHA verification fetch error:', response.status, errorText);
+      return { success: false, error: `Failed to connect to reCAPTCHA service: ${response.status} ${errorText}` };
+    }
+    
     const data = await response.json();
-    return data.success;
+    if (!data.success) {
+      console.error('reCAPTCHA verification failed:', data['error-codes']);
+      return { success: false, error: `Invalid token: ${data['error-codes']?.join(', ')}` };
+    }
+    return { success: true };
   } catch (error) {
-    console.error('reCAPTCHA verification error:', error);
-    return false;
+    console.error('reCAPTCHA verification error:', error.message);
+    return { success: false, error: error.message };
   }
 }
 
@@ -62,10 +93,11 @@ serve(async (req) => {
     }
 
     // Verify reCAPTCHA token
-    const isRecaptchaValid = await verifyRecaptcha(recaptchaToken);
-    if (!isRecaptchaValid) {
+    const recaptchaResult = await verifyRecaptcha(recaptchaToken);
+    if (!recaptchaResult.success) {
+      console.error("reCAPTCHA verification failed:", recaptchaResult.error);
       return new Response(
-        JSON.stringify({ error: "reCAPTCHA verification failed" }),
+        JSON.stringify({ error: "reCAPTCHA verification failed", details: recaptchaResult.error }),
         {
           status: 400,
           headers: { "Content-Type": "application/json", ...corsHeaders },
@@ -116,13 +148,29 @@ serve(async (req) => {
       }
     );
   } catch (error: any) {
-    console.error("Error in resend-email function:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
-    );
+    // Check if the error is from Resend API
+    // This is a basic check; you might need a more robust way to identify Resend errors,
+    // depending on the error objects thrown by the Resend SDK.
+    // For example, if Resend errors have a specific `name` property like 'ResendError'.
+    // Or if error.message contains specific keywords.
+    if (error.name === 'ResendError' || (error.message && error.message.toLowerCase().includes('resend'))) {
+      console.error("Resend API error:", error.message, error);
+      return new Response(
+        JSON.stringify({ error: "Failed to send email", details: error.message }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    } else {
+      console.error("Internal server error in resend-email function:", error.message, error);
+      return new Response(
+        JSON.stringify({ error: "Internal server error", details: error.message }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
   }
 });
