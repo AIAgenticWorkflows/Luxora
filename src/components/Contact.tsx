@@ -9,7 +9,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { supabase } from "@/integrations/supabase/client";
 import ReCAPTCHA from "react-google-recaptcha";
 
-const RECAPTCHA_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"; // This is Google's test key - replace with your actual key in production
+const RECAPTCHA_SITE_KEY = "6LfpREYrAAAAANekXAQhVHh2l1VoRbmUmffjUTYh"; // This is Google's test key - replace with your actual key in production
 
 const Contact = () => {
   const { toast } = useToast();
