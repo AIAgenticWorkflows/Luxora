@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/hooks/useLanguage";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -33,20 +34,24 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Create email content
-      const emailSubject = `New Booking Inquiry from ${formData.name}`;
-      const emailBody = `
-        Name: ${formData.name}
-        Email: ${formData.email}
-        Check-in: ${formData.checkin}
-        Check-out: ${formData.checkout}
-        Guests: ${formData.guests}
-        Message: ${formData.message}
-      `;
+      // Send data to Supabase Edge Function
+      const { error } = await supabase.functions.invoke('resend-email', {
+        body: formData
+      });
+
+      if (error) {
+        throw new Error(error.message);
+      }
       
-      // Use mailto link to open email client
-      const mailtoLink = `mailto:n.appanah@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-      window.location.href = mailtoLink;
+      // Reset form after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        checkin: '',
+        checkout: '',
+        guests: 2,
+        message: ''
+      });
       
       toast({
         title: t('inquiry.success.title'),
