@@ -153,8 +153,7 @@ const Contact = () => {
                   <Input 
                     id="guests" 
                     type="number" 
-                    min="1" 
-                    defaultValue="2" 
+                    min="1"
                     required 
                     className="w-full"
                     value={formData.guests}
