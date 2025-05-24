@@ -184,13 +184,13 @@ const Gallery = () => {
               <CarouselNext className="right-4 bg-white/90 hover:bg-white border-0 shadow-lg" />
             </Carousel>
 
-            {/* Thumbnail grid */}
-            <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 md:gap-3 mt-6">
+            {/* Improved thumbnail grid */}
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 md:gap-4 mt-8 px-2">
               {filteredImages.map((image, index) => (
                 <button
                   key={image.id}
                   onClick={() => api?.scrollTo(index)}
-                  className={`relative aspect-square rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue ${
+                  className={`relative aspect-square rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue min-h-[80px] md:min-h-[100px] ${
                     current === index + 1
                       ? 'ring-3 ring-luxury-gold shadow-lg scale-105' 
                       : 'hover:ring-2 hover:ring-luxury-blue/50'
