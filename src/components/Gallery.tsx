@@ -1,6 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Gallery images using the uploaded images
 const galleryImagesData = [
@@ -80,12 +83,31 @@ const galleryImagesData = [
 
 const Gallery = () => {
   const { t } = useLanguage();
-  const [selectedImage, setSelectedImage] = useState(galleryImagesData[0]);
-  const [filter, setFilter] = useState('all');
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState('all');
 
-  const filteredImages = filter === 'all' 
+  const filteredImages = activeTab === 'all' 
     ? galleryImagesData 
-    : galleryImagesData.filter(img => img.category === filter);
+    : galleryImagesData.filter(img => img.category === activeTab);
+
+  // Reset selected image when filter changes
+  useEffect(() => {
+    setSelectedImageIndex(0);
+  }, [activeTab]);
+
+  const currentImage = filteredImages[selectedImageIndex];
+
+  const goToPrevious = () => {
+    setSelectedImageIndex(prev => 
+      prev === 0 ? filteredImages.length - 1 : prev - 1
+    );
+  };
+
+  const goToNext = () => {
+    setSelectedImageIndex(prev => 
+      prev === filteredImages.length - 1 ? 0 : prev + 1
+    );
+  };
 
   return (
     <section id="gallery" className="py-20 bg-white">
@@ -95,90 +117,96 @@ const Gallery = () => {
           <p className="text-gray-600 max-w-2xl mx-auto mb-8">
             {t('gallery.mainDescription')}
           </p>
-          
-          {/* Simplified Gallery filters */}
-          <div className="flex justify-center gap-4 mb-8">
-            <button 
-              onClick={() => setFilter('all')}
-              className={`px-6 py-3 rounded-full transition-all font-medium ${
-                filter === 'all' 
-                  ? 'bg-luxury-blue text-white shadow-lg' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
+        </div>
+
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-8">
+            <TabsTrigger value="all" className="text-sm font-medium">
               {t('gallery.filter.all')}
-            </button>
-            <button 
-              onClick={() => setFilter('exterior')}
-              className={`px-6 py-3 rounded-full transition-all font-medium ${
-                filter === 'exterior' 
-                  ? 'bg-luxury-blue text-white shadow-lg' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
+            </TabsTrigger>
+            <TabsTrigger value="exterior" className="text-sm font-medium">
               {t('gallery.filter.exterior')}
-            </button>
-            <button 
-              onClick={() => setFilter('interior')}
-              className={`px-6 py-3 rounded-full transition-all font-medium ${
-                filter === 'interior' 
-                  ? 'bg-luxury-blue text-white shadow-lg' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
+            </TabsTrigger>
+            <TabsTrigger value="interior" className="text-sm font-medium">
               {t('gallery.filter.interior')}
-            </button>
-          </div>
-        </div>
-        
-        {/* Main selected image - larger and more prominent */}
-        <div className="mb-8">
-          <div className="relative rounded-xl overflow-hidden shadow-2xl bg-black">
-            <img 
-              src={selectedImage.src} 
-              alt={t(selectedImage.altKey)} 
-              className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover transition-all duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <p className="text-white text-lg md:text-xl font-serif">{t(selectedImage.altKey)}</p>
-            </div>
-          </div>
-        </div>
-        
-        {/* Modern responsive grid for thumbnails */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
-          {filteredImages.map((image) => (
-            <div 
-              key={image.id}
-              onClick={() => setSelectedImage(image)}
-              className={`relative group cursor-pointer rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl ${
-                selectedImage.id === image.id 
-                  ? 'ring-4 ring-luxury-gold shadow-xl scale-105' 
-                  : 'hover:ring-2 hover:ring-luxury-blue/50'
-              }`}
-            >
-              <div className="aspect-square relative">
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value={activeTab} className="mt-0">
+            {/* Main image display - Booking.com style */}
+            <div className="relative mb-6">
+              <div className="relative aspect-[16/10] md:aspect-[20/10] lg:aspect-[24/10] rounded-xl overflow-hidden bg-black shadow-2xl">
                 <img 
-                  src={image.src} 
-                  alt={t(image.altKey)} 
-                  className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-110"
+                  src={currentImage?.src} 
+                  alt={currentImage ? t(currentImage.altKey) : ''} 
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
-                {selectedImage.id === image.id && (
-                  <div className="absolute inset-0 bg-luxury-gold/20" />
+                
+                {/* Navigation arrows */}
+                {filteredImages.length > 1 && (
+                  <>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={goToPrevious}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-0 shadow-lg"
+                    >
+                      <ChevronLeft className="h-6 w-6" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={goToNext}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-0 shadow-lg"
+                    >
+                      <ChevronRight className="h-6 w-6" />
+                    </Button>
+                  </>
                 )}
+
+                {/* Image counter */}
+                <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  {selectedImageIndex + 1} / {filteredImages.length}
+                </div>
+
+                {/* Gradient overlay for better text readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                
+                {/* Image title */}
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="text-white text-lg md:text-xl font-serif">
+                    {currentImage ? t(currentImage.altKey) : ''}
+                  </h3>
+                </div>
               </div>
             </div>
-          ))}
-        </div>
-        
-        {/* Image counter */}
-        <div className="text-center mt-8">
-          <p className="text-gray-500 text-sm">
-            {filteredImages.findIndex(img => img.id === selectedImage.id) + 1} of {filteredImages.length} images
-          </p>
-        </div>
+
+            {/* Thumbnail grid - Booking.com style */}
+            <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 md:gap-3">
+              {filteredImages.map((image, index) => (
+                <button
+                  key={image.id}
+                  onClick={() => setSelectedImageIndex(index)}
+                  className={`relative aspect-square rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue ${
+                    selectedImageIndex === index 
+                      ? 'ring-3 ring-luxury-gold shadow-lg scale-105' 
+                      : 'hover:ring-2 hover:ring-luxury-blue/50'
+                  }`}
+                >
+                  <img 
+                    src={image.src} 
+                    alt={t(image.altKey)} 
+                    className="w-full h-full object-cover transition-all duration-300 hover:brightness-110"
+                  />
+                  {selectedImageIndex === index && (
+                    <div className="absolute inset-0 bg-luxury-gold/20" />
+                  )}
+                  <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300" />
+                </button>
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </section>
   );
