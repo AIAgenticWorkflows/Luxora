@@ -18,6 +18,14 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleBookNow = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   const navbarClasses = `
     fixed w-full z-50 transition-all duration-300
     ${isScrolled ? 'bg-white shadow-lg py-2' : 'bg-transparent py-4'}
@@ -46,7 +54,10 @@ const Navbar = () => {
             <a href="#location" className={linkClasses}>{t('nav.location')}</a>
             <a href="#contact" className={linkClasses}>{t('nav.contact')}</a>
             <LanguageToggle />
-            <Button className="bg-luxury-gold text-white hover:bg-opacity-90">
+            <Button 
+              className="bg-luxury-gold text-white hover:bg-opacity-90"
+              onClick={handleBookNow}
+            >
               {t('hero.cta')}
             </Button>
           </div>
@@ -80,7 +91,10 @@ const Navbar = () => {
               <div className="pt-2">
                 <LanguageToggle />
               </div>
-              <Button className="bg-luxury-gold text-white hover:bg-opacity-90 mt-2" onClick={() => setIsMobileMenuOpen(false)}>
+              <Button 
+                className="bg-luxury-gold text-white hover:bg-opacity-90 mt-2" 
+                onClick={handleBookNow}
+              >
                 {t('hero.cta')}
               </Button>
             </div>
