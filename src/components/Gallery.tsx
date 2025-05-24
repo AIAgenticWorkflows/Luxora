@@ -20,13 +20,13 @@ const galleryImagesData = [
     id: 3,
     src: '/lovable-uploads/17d507de-ba3a-4058-abe3-c10f9cde1650.png',
     altKey: 'gallery.imageAlt.pereybereSunset',
-    category: 'location'
+    category: 'exterior'
   },
   {
     id: 4,
     src: '/lovable-uploads/fe796886-fbef-4626-bb98-2831ba06f4e3.png',
     altKey: 'gallery.imageAlt.bedroomPoolView',
-    category: 'bedroom'
+    category: 'interior'
   },
   {
     id: 5,
@@ -38,37 +38,37 @@ const galleryImagesData = [
     id: 6,
     src: '/lovable-uploads/77624a5a-f93f-4f78-bfb8-c6d88cf9d7d1.png',
     altKey: 'gallery.imageAlt.modernKitchenDining',
-    category: 'kitchen'
+    category: 'interior'
   },
   {
     id: 7,
     src: '/lovable-uploads/0a540aea-f68a-4d87-b064-23c8a87b6549.png',
     altKey: 'gallery.imageAlt.luxuryBathroomJacuzzi',
-    category: 'bathroom'
+    category: 'interior'
   },
   {
     id: 8,
     src: '/lovable-uploads/8d3df2d7-ed3d-4430-9084-a928a3ae4679.png',
     altKey: 'gallery.imageAlt.modernBedroom',
-    category: 'bedroom'
+    category: 'interior'
   },
   {
     id: 9,
     src: '/lovable-uploads/6e9e28a8-4cd6-431c-9d15-c15ad821f630.png',
     altKey: 'gallery.imageAlt.bedroomPoolAccess',
-    category: 'bedroom'
+    category: 'interior'
   },
   {
     id: 10,
     src: '/lovable-uploads/42ac3b94-9f10-49ef-8238-94f313a1bde6.png',
     altKey: 'gallery.imageAlt.secondBedroom',
-    category: 'bedroom'
+    category: 'interior'
   },
   {
     id: 11,
     src: '/lovable-uploads/abb57903-7d11-459c-9ffe-7005a3f030b6.png',
     altKey: 'gallery.imageAlt.poolView',
-    category: 'pool'
+    category: 'exterior'
   },
   {
     id: 12,
@@ -90,19 +90,19 @@ const Gallery = () => {
   return (
     <section id="gallery" className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="text-4xl font-serif font-bold text-luxury-dark mb-4">{t('gallery.mainTitle')}</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-2xl mx-auto mb-8">
             {t('gallery.mainDescription')}
           </p>
           
-          {/* Gallery filters */}
-          <div className="flex flex-wrap justify-center gap-2 mt-8">
+          {/* Simplified Gallery filters */}
+          <div className="flex justify-center gap-4 mb-8">
             <button 
               onClick={() => setFilter('all')}
-              className={`px-4 py-2 rounded-full transition-all ${
+              className={`px-6 py-3 rounded-full transition-all font-medium ${
                 filter === 'all' 
-                  ? 'bg-luxury-blue text-white' 
+                  ? 'bg-luxury-blue text-white shadow-lg' 
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -110,108 +110,74 @@ const Gallery = () => {
             </button>
             <button 
               onClick={() => setFilter('exterior')}
-              className={`px-4 py-2 rounded-full transition-all ${
+              className={`px-6 py-3 rounded-full transition-all font-medium ${
                 filter === 'exterior' 
-                  ? 'bg-luxury-blue text-white' 
+                  ? 'bg-luxury-blue text-white shadow-lg' 
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
               {t('gallery.filter.exterior')}
             </button>
             <button 
-              onClick={() => setFilter('pool')}
-              className={`px-4 py-2 rounded-full transition-all ${
-                filter === 'pool' 
-                  ? 'bg-luxury-blue text-white' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              {t('gallery.filter.pool')}
-            </button>
-            <button 
-              onClick={() => setFilter('bedroom')}
-              className={`px-4 py-2 rounded-full transition-all ${
-                filter === 'bedroom' 
-                  ? 'bg-luxury-blue text-white' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              {t('gallery.filter.bedrooms')}
-            </button>
-            <button 
-              onClick={() => setFilter('bathroom')}
-              className={`px-4 py-2 rounded-full transition-all ${
-                filter === 'bathroom' 
-                  ? 'bg-luxury-blue text-white' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              {t('gallery.filter.bathrooms')}
-            </button>
-            <button 
-              onClick={() => setFilter('kitchen')}
-              className={`px-4 py-2 rounded-full transition-all ${
-                filter === 'kitchen' 
-                  ? 'bg-luxury-blue text-white' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              {t('gallery.filter.kitchen')}
-            </button>
-            <button 
               onClick={() => setFilter('interior')}
-              className={`px-4 py-2 rounded-full transition-all ${
+              className={`px-6 py-3 rounded-full transition-all font-medium ${
                 filter === 'interior' 
-                  ? 'bg-luxury-blue text-white' 
+                  ? 'bg-luxury-blue text-white shadow-lg' 
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
               {t('gallery.filter.interior')}
             </button>
-            <button 
-              onClick={() => setFilter('location')}
-              className={`px-4 py-2 rounded-full transition-all ${
-                filter === 'location' 
-                  ? 'bg-luxury-blue text-white' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              {t('gallery.filter.location')}
-            </button>
           </div>
         </div>
         
+        {/* Main selected image - larger and more prominent */}
         <div className="mb-8">
-          {/* Main selected image */}
-          <div className="gallery-main-image h-[500px] animate-fade-in relative rounded-lg overflow-hidden">
+          <div className="relative rounded-xl overflow-hidden shadow-2xl bg-black">
             <img 
               src={selectedImage.src} 
               alt={t(selectedImage.altKey)} 
-              className="w-full h-full object-cover"
+              className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover transition-all duration-500"
             />
-            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent">
-              <p className="text-white text-lg font-serif">{t(selectedImage.altKey)}</p>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <p className="text-white text-lg md:text-xl font-serif">{t(selectedImage.altKey)}</p>
             </div>
           </div>
         </div>
         
-        {/* Thumbnail grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {/* Modern responsive grid for thumbnails */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
           {filteredImages.map((image) => (
             <div 
               key={image.id}
               onClick={() => setSelectedImage(image)}
-              className={`gallery-thumbnail h-[100px] cursor-pointer ${
-                selectedImage.id === image.id ? 'ring-4 ring-luxury-gold' : ''
+              className={`relative group cursor-pointer rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl ${
+                selectedImage.id === image.id 
+                  ? 'ring-4 ring-luxury-gold shadow-xl scale-105' 
+                  : 'hover:ring-2 hover:ring-luxury-blue/50'
               }`}
             >
-              <img 
-                src={image.src} 
-                alt={t(image.altKey)} 
-                className="w-full h-full object-cover"
-              />
+              <div className="aspect-square relative">
+                <img 
+                  src={image.src} 
+                  alt={t(image.altKey)} 
+                  className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-110"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
+                {selectedImage.id === image.id && (
+                  <div className="absolute inset-0 bg-luxury-gold/20" />
+                )}
+              </div>
             </div>
           ))}
+        </div>
+        
+        {/* Image counter */}
+        <div className="text-center mt-8">
+          <p className="text-gray-500 text-sm">
+            {filteredImages.findIndex(img => img.id === selectedImage.id) + 1} of {filteredImages.length} images
+          </p>
         </div>
       </div>
     </section>
