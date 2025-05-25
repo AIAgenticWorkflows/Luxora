@@ -101,28 +101,37 @@ const Gallery = () => {
 
   useEffect(() => {
     if (!api) {
+      console.log('API not available yet');
       return;
     }
 
+    console.log('Setting up carousel API');
     setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap());
 
     api.on('select', () => {
-      setCurrent(api.selectedScrollSnap());
+      const newCurrent = api.selectedScrollSnap();
+      console.log('Carousel select event - new current:', newCurrent);
+      setCurrent(newCurrent);
     });
   }, [api]);
 
   // Reset carousel when tab changes
   useEffect(() => {
     if (api) {
+      console.log('Resetting carousel for tab change');
       api.scrollTo(0);
       setCurrent(0);
     }
   }, [activeTab, api]);
 
   const handleThumbnailClick = (index: number) => {
+    console.log('Thumbnail clicked - index:', index, 'current api:', !!api);
     if (api) {
+      console.log('Scrolling to index:', index);
       api.scrollTo(index);
+      // Force update the current state immediately
+      setCurrent(index);
     }
   };
 
