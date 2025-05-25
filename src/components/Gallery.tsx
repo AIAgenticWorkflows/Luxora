@@ -120,8 +120,11 @@ const Gallery = () => {
   useEffect(() => {
     if (api) {
       console.log('Resetting carousel for tab change');
-      api.scrollTo(0);
-      setCurrent(0);
+      // Wait for the DOM to update before scrolling
+      setTimeout(() => {
+        api.scrollTo(0);
+        setCurrent(0);
+      }, 50);
     }
   }, [activeTab, api]);
 
@@ -132,16 +135,18 @@ const Gallery = () => {
       console.log('Current scroll snap before:', api.selectedScrollSnap());
       console.log('Available scroll snaps:', api.scrollSnapList().length);
       
-      // Use scrollTo method and wait for it to complete
-      api.scrollTo(index, true); // true parameter forces immediate scroll
-      
-      // Also update state immediately for UI feedback
+      // First update the state for immediate UI feedback
       setCurrent(index);
       
-      // Add a small delay to log the result
+      // Then scroll the carousel with a small delay to ensure state is updated
       setTimeout(() => {
-        console.log('Current scroll snap after:', api.selectedScrollSnap());
-      }, 100);
+        api.scrollTo(index, false); // false for smooth scroll
+        
+        // Verify the scroll happened
+        setTimeout(() => {
+          console.log('Current scroll snap after:', api.selectedScrollSnap());
+        }, 100);
+      }, 10);
     }
   };
 
@@ -180,6 +185,7 @@ const Gallery = () => {
                     align: "start",
                     loop: true,
                   }}
+                  key={`desktop-${activeTab}-${filteredImages.length}`}
                 >
                   <CarouselContent>
                     {filteredImages.map((image, index) => (
@@ -212,9 +218,9 @@ const Gallery = () => {
                 </Carousel>
               </div>
 
-              {/* Thumbnails - right side */}
+              {/* Thumbnails - right side with visible scrollbar */}
               <div className="w-48">
-                <ScrollArea className="h-[500px]">
+                <ScrollArea className="h-[500px] [&>[data-radix-scroll-area-viewport]]:pb-2">
                   <div className="grid grid-cols-2 gap-2 pr-2">
                     {filteredImages.map((image, index) => (
                       <button
@@ -251,6 +257,7 @@ const Gallery = () => {
                   align: "start",
                   loop: true,
                 }}
+                key={`mobile-${activeTab}-${filteredImages.length}`}
               >
                 <CarouselContent>
                   {filteredImages.map((image, index) => (
@@ -282,30 +289,32 @@ const Gallery = () => {
                 <CarouselNext className="right-4 bg-white/90 hover:bg-white border-0 shadow-lg" />
               </Carousel>
 
-              {/* Mobile thumbnails below */}
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 md:gap-4 mt-8 px-2">
-                {filteredImages.map((image, index) => (
-                  <button
-                    key={image.id}
-                    onClick={() => handleThumbnailClick(index)}
-                    className={`relative aspect-square rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue min-h-[80px] md:min-h-[100px] ${
-                      current === index
-                        ? 'ring-3 ring-luxury-gold shadow-lg scale-105' 
-                        : 'hover:ring-2 hover:ring-luxury-blue/50'
-                    }`}
-                  >
-                    <img 
-                      src={image.src} 
-                      alt={t(image.altKey)} 
-                      className="w-full h-full object-cover transition-all duration-300 hover:brightness-110"
-                    />
-                    {current === index && (
-                      <div className="absolute inset-0 bg-luxury-gold/20" />
-                    )}
-                    <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300" />
-                  </button>
-                ))}
-              </div>
+              {/* Mobile thumbnails below with horizontal scrollbar */}
+              <ScrollArea className="w-full mt-8 [&>[data-radix-scroll-area-viewport]]:pb-2" orientation="horizontal">
+                <div className="flex gap-3 md:gap-4 px-2 pb-2">
+                  {filteredImages.map((image, index) => (
+                    <button
+                      key={image.id}
+                      onClick={() => handleThumbnailClick(index)}
+                      className={`relative aspect-square rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue flex-shrink-0 w-20 h-20 md:w-24 md:h-24 ${
+                        current === index
+                          ? 'ring-3 ring-luxury-gold shadow-lg scale-105' 
+                          : 'hover:ring-2 hover:ring-luxury-blue/50'
+                      }`}
+                    >
+                      <img 
+                        src={image.src} 
+                        alt={t(image.altKey)} 
+                        className="w-full h-full object-cover transition-all duration-300 hover:brightness-110"
+                      />
+                      {current === index && (
+                        <div className="absolute inset-0 bg-luxury-gold/20" />
+                      )}
+                      <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300" />
+                    </button>
+                  ))}
+                </div>
+              </ScrollArea>
             </div>
           </TabsContent>
         </Tabs>
