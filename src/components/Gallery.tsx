@@ -120,9 +120,9 @@ const Gallery = () => {
   }, [activeTab, api]);
 
   return (
-    <section id="gallery" className="py-20 bg-white">
+    <section id="gallery" className="py-12 lg:py-16 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 lg:mb-10">
           <h2 className="text-4xl font-serif font-bold text-luxury-dark mb-4">{t('gallery.mainTitle')}</h2>
           <p className="text-gray-600 max-w-2xl mx-auto mb-8">
             {t('gallery.mainDescription')}
@@ -154,7 +154,7 @@ const Gallery = () => {
               <CarouselContent>
                 {filteredImages.map((image, index) => (
                   <CarouselItem key={image.id} className="basis-full">
-                    <div className="relative aspect-[16/10] md:aspect-[20/10] lg:aspect-[24/10] rounded-xl overflow-hidden bg-black shadow-2xl">
+                    <div className="relative aspect-[16/10] md:aspect-[18/10] lg:aspect-[20/9] rounded-xl overflow-hidden bg-black shadow-2xl">
                       <img 
                         src={image.src} 
                         alt={t(image.altKey)} 
@@ -185,7 +185,7 @@ const Gallery = () => {
             </Carousel>
 
             {/* Improved thumbnail grid */}
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 md:gap-4 mt-8 px-2">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 md:gap-4 mt-4 lg:mt-6 px-2">
               {filteredImages.map((image, index) => (
                 <button
                   key={image.id}
