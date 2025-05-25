@@ -105,10 +105,10 @@ const Gallery = () => {
     }
 
     setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
+    setCurrent(api.selectedScrollSnap());
 
     api.on('select', () => {
-      setCurrent(api.selectedScrollSnap() + 1);
+      setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
 
@@ -116,9 +116,15 @@ const Gallery = () => {
   useEffect(() => {
     if (api) {
       api.scrollTo(0);
-      setCurrent(1);
+      setCurrent(0);
     }
   }, [activeTab, api]);
+
+  const handleThumbnailClick = (index: number) => {
+    if (api) {
+      api.scrollTo(index);
+    }
+  };
 
   return (
     <section id="gallery" className="py-20 bg-white">
@@ -175,7 +181,7 @@ const Gallery = () => {
                           </div>
 
                           <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
-                            {current} / {count}
+                            {current + 1} / {count}
                           </div>
                         </div>
                       </CarouselItem>
@@ -194,9 +200,9 @@ const Gallery = () => {
                     {filteredImages.map((image, index) => (
                       <button
                         key={image.id}
-                        onClick={() => api?.scrollTo(index)}
+                        onClick={() => handleThumbnailClick(index)}
                         className={`relative aspect-square rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue ${
-                          current === index + 1
+                          current === index
                             ? 'ring-2 ring-luxury-gold shadow-lg scale-105' 
                             : 'hover:ring-2 hover:ring-luxury-blue/50'
                         }`}
@@ -206,7 +212,7 @@ const Gallery = () => {
                           alt={t(image.altKey)} 
                           className="w-full h-full object-cover transition-all duration-300 hover:brightness-110"
                         />
-                        {current === index + 1 && (
+                        {current === index && (
                           <div className="absolute inset-0 bg-luxury-gold/20" />
                         )}
                         <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300" />
@@ -246,7 +252,7 @@ const Gallery = () => {
                         </div>
 
                         <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
-                          {current} / {count}
+                          {current + 1} / {count}
                         </div>
                       </div>
                     </CarouselItem>
@@ -262,9 +268,9 @@ const Gallery = () => {
                 {filteredImages.map((image, index) => (
                   <button
                     key={image.id}
-                    onClick={() => api?.scrollTo(index)}
+                    onClick={() => handleThumbnailClick(index)}
                     className={`relative aspect-square rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue min-h-[80px] md:min-h-[100px] ${
-                      current === index + 1
+                      current === index
                         ? 'ring-3 ring-luxury-gold shadow-lg scale-105' 
                         : 'hover:ring-2 hover:ring-luxury-blue/50'
                     }`}
@@ -274,7 +280,7 @@ const Gallery = () => {
                       alt={t(image.altKey)} 
                       className="w-full h-full object-cover transition-all duration-300 hover:brightness-110"
                     />
-                    {current === index + 1 && (
+                    {current === index && (
                       <div className="absolute inset-0 bg-luxury-gold/20" />
                     )}
                     <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300" />
