@@ -80,18 +80,6 @@ const Location = () => {
                   <p className="text-gray-600">{t('location.dining.description')}</p>
                 </div>
               </div>
-              
-              <div className="flex items-start">
-                <div className="bg-luxury-gold rounded-full p-2 mr-4 mt-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 8a3 3 0 110-6 3 3 0 010 6z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-serif font-bold text-lg">{t('location.transport.title')}</h3>
-                  <p className="text-gray-600">{t('location.transport.description')}</p>
-                </div>
-              </div>
             </div>
             
             <a href="https://www.google.com/maps/place/20%C2%B000'13.7%22S+57%C2%B036'26.7%22E/@-20.003798,57.6067819,252m/data=!3m2!1e3!4b1!4m4!3m3!8m2!3d-20.003798!4d57.607427" target="_blank" rel="noopener noreferrer">
