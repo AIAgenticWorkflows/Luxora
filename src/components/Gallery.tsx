@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Carousel,
   CarouselContent,
@@ -101,54 +100,24 @@ const Gallery = () => {
 
   useEffect(() => {
     if (!api) {
-      console.log('API not available yet');
       return;
     }
 
-    console.log('Setting up carousel API');
     setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap());
+    setCurrent(api.selectedScrollSnap() + 1);
 
     api.on('select', () => {
-      const newCurrent = api.selectedScrollSnap();
-      console.log('Carousel select event - new current:', newCurrent);
-      setCurrent(newCurrent);
+      setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
 
   // Reset carousel when tab changes
   useEffect(() => {
     if (api) {
-      console.log('Resetting carousel for tab change');
-      // Wait for the DOM to update before scrolling
-      setTimeout(() => {
-        api.scrollTo(0);
-        setCurrent(0);
-      }, 50);
+      api.scrollTo(0);
+      setCurrent(1);
     }
   }, [activeTab, api]);
-
-  const handleThumbnailClick = (index: number) => {
-    console.log('Thumbnail clicked - index:', index, 'current api:', !!api);
-    if (api) {
-      console.log('Scrolling to index:', index);
-      console.log('Current scroll snap before:', api.selectedScrollSnap());
-      console.log('Available scroll snaps:', api.scrollSnapList().length);
-      
-      // First update the state for immediate UI feedback
-      setCurrent(index);
-      
-      // Then scroll the carousel with a small delay to ensure state is updated
-      setTimeout(() => {
-        api.scrollTo(index, false); // false for smooth scroll
-        
-        // Verify the scroll happened
-        setTimeout(() => {
-          console.log('Current scroll snap after:', api.selectedScrollSnap());
-        }, 100);
-      }, 10);
-    }
-  };
 
   return (
     <section id="gallery" className="py-20 bg-white">
@@ -174,147 +143,70 @@ const Gallery = () => {
           </TabsList>
 
           <TabsContent value={activeTab} className="mt-0">
-            {/* Desktop layout: side by side */}
-            <div className="hidden lg:flex gap-6 max-w-7xl mx-auto">
-              {/* Main carousel - left side */}
-              <div className="flex-1">
-                <Carousel 
-                  setApi={setApi}
-                  className="w-full"
-                  opts={{
-                    align: "start",
-                    loop: true,
-                  }}
-                  key={`desktop-${activeTab}-${filteredImages.length}`}
-                >
-                  <CarouselContent>
-                    {filteredImages.map((image, index) => (
-                      <CarouselItem key={image.id} className="basis-full">
-                        <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-black shadow-2xl">
-                          <img 
-                            src={image.src} 
-                            alt={t(image.altKey)} 
-                            className="w-full h-full object-cover"
-                          />
-                          
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                          
-                          <div className="absolute bottom-0 left-0 right-0 p-6">
-                            <h3 className="text-white text-lg md:text-xl font-serif">
-                              {t(image.altKey)}
-                            </h3>
-                          </div>
-
-                          <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
-                            {current + 1} / {count}
-                          </div>
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  
-                  <CarouselPrevious className="left-4 bg-white/90 hover:bg-white border-0 shadow-lg" />
-                  <CarouselNext className="right-4 bg-white/90 hover:bg-white border-0 shadow-lg" />
-                </Carousel>
-              </div>
-
-              {/* Thumbnails - right side with visible scrollbar */}
-              <div className="w-48">
-                <ScrollArea className="h-[500px] [&>[data-radix-scroll-area-viewport]]:pb-2">
-                  <div className="grid grid-cols-2 gap-2 pr-2">
-                    {filteredImages.map((image, index) => (
-                      <button
-                        key={image.id}
-                        onClick={() => handleThumbnailClick(index)}
-                        className={`relative aspect-square rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue ${
-                          current === index
-                            ? 'ring-2 ring-luxury-gold shadow-lg scale-105' 
-                            : 'hover:ring-2 hover:ring-luxury-blue/50'
-                        }`}
-                      >
-                        <img 
-                          src={image.src} 
-                          alt={t(image.altKey)} 
-                          className="w-full h-full object-cover transition-all duration-300 hover:brightness-110"
-                        />
-                        {current === index && (
-                          <div className="absolute inset-0 bg-luxury-gold/20" />
-                        )}
-                        <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300" />
-                      </button>
-                    ))}
-                  </div>
-                </ScrollArea>
-              </div>
-            </div>
-
-            {/* Mobile/Tablet layout: stacked */}
-            <div className="lg:hidden">
-              <Carousel 
-                setApi={setApi}
-                className="w-full max-w-5xl mx-auto"
-                opts={{
-                  align: "start",
-                  loop: true,
-                }}
-                key={`mobile-${activeTab}-${filteredImages.length}`}
-              >
-                <CarouselContent>
-                  {filteredImages.map((image, index) => (
-                    <CarouselItem key={image.id} className="basis-full">
-                      <div className="relative aspect-[16/10] md:aspect-[20/10] rounded-xl overflow-hidden bg-black shadow-2xl">
-                        <img 
-                          src={image.src} 
-                          alt={t(image.altKey)} 
-                          className="w-full h-full object-cover"
-                        />
-                        
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                        
-                        <div className="absolute bottom-0 left-0 right-0 p-6">
-                          <h3 className="text-white text-lg md:text-xl font-serif">
-                            {t(image.altKey)}
-                          </h3>
-                        </div>
-
-                        <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
-                          {current + 1} / {count}
-                        </div>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                
-                <CarouselPrevious className="left-4 bg-white/90 hover:bg-white border-0 shadow-lg" />
-                <CarouselNext className="right-4 bg-white/90 hover:bg-white border-0 shadow-lg" />
-              </Carousel>
-
-              {/* Mobile thumbnails below with horizontal scrollbar */}
-              <ScrollArea className="w-full mt-8 [&>[data-radix-scroll-area-viewport]]:pb-2" orientation="horizontal">
-                <div className="flex gap-3 md:gap-4 px-2 pb-2">
-                  {filteredImages.map((image, index) => (
-                    <button
-                      key={image.id}
-                      onClick={() => handleThumbnailClick(index)}
-                      className={`relative aspect-square rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue flex-shrink-0 w-20 h-20 md:w-24 md:h-24 ${
-                        current === index
-                          ? 'ring-3 ring-luxury-gold shadow-lg scale-105' 
-                          : 'hover:ring-2 hover:ring-luxury-blue/50'
-                      }`}
-                    >
+            <Carousel 
+              setApi={setApi}
+              className="w-full max-w-5xl mx-auto"
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+            >
+              <CarouselContent>
+                {filteredImages.map((image, index) => (
+                  <CarouselItem key={image.id} className="basis-full">
+                    <div className="relative aspect-[16/10] md:aspect-[20/10] lg:aspect-[24/10] rounded-xl overflow-hidden bg-black shadow-2xl">
                       <img 
                         src={image.src} 
                         alt={t(image.altKey)} 
-                        className="w-full h-full object-cover transition-all duration-300 hover:brightness-110"
+                        className="w-full h-full object-cover"
                       />
-                      {current === index && (
-                        <div className="absolute inset-0 bg-luxury-gold/20" />
-                      )}
-                      <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300" />
-                    </button>
-                  ))}
-                </div>
-              </ScrollArea>
+                      
+                      {/* Gradient overlay for better text readability */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                      
+                      {/* Image title */}
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 className="text-white text-lg md:text-xl font-serif">
+                          {t(image.altKey)}
+                        </h3>
+                      </div>
+
+                      {/* Image counter */}
+                      <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
+                        {current} / {count}
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              
+              <CarouselPrevious className="left-4 bg-white/90 hover:bg-white border-0 shadow-lg" />
+              <CarouselNext className="right-4 bg-white/90 hover:bg-white border-0 shadow-lg" />
+            </Carousel>
+
+            {/* Improved thumbnail grid */}
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 md:gap-4 mt-8 px-2">
+              {filteredImages.map((image, index) => (
+                <button
+                  key={image.id}
+                  onClick={() => api?.scrollTo(index)}
+                  className={`relative aspect-square rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue min-h-[80px] md:min-h-[100px] ${
+                    current === index + 1
+                      ? 'ring-3 ring-luxury-gold shadow-lg scale-105' 
+                      : 'hover:ring-2 hover:ring-luxury-blue/50'
+                  }`}
+                >
+                  <img 
+                    src={image.src} 
+                    alt={t(image.altKey)} 
+                    className="w-full h-full object-cover transition-all duration-300 hover:brightness-110"
+                  />
+                  {current === index + 1 && (
+                    <div className="absolute inset-0 bg-luxury-gold/20" />
+                  )}
+                  <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300" />
+                </button>
+              ))}
             </div>
           </TabsContent>
         </Tabs>
