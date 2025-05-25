@@ -10,10 +10,6 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from '@/components/ui/carousel';
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/ui/dialog";
 
 // Gallery images using the uploaded images
 const galleryImagesData = [
@@ -94,46 +90,35 @@ const galleryImagesData = [
 const Gallery = () => {
   const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('all');
-  const [modalCarouselApi, setModalCarouselApi] = useState<CarouselApi>();
-  const [currentModal, setCurrentModal] = useState(0);
-  const [countModal, setCountModal] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
 
   const filteredImages = activeTab === 'all' 
     ? galleryImagesData 
     : galleryImagesData.filter(img => img.category === activeTab);
 
   useEffect(() => {
-    if (!modalCarouselApi) {
+    if (!api) {
       return;
     }
 
-    setCountModal(modalCarouselApi.scrollSnapList().length);
-    setCurrentModal(modalCarouselApi.selectedScrollSnap() + 1);
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
 
-    modalCarouselApi.on('select', () => {
-      setCurrentModal(modalCarouselApi.selectedScrollSnap() + 1);
+    api.on('select', () => {
+      setCurrent(api.selectedScrollSnap() + 1);
     });
-  }, [modalCarouselApi]);
+  }, [api]);
 
-  // Reset carousel when tab changes for the main view (if it were still active)
-  // For modal, scrolling is handled when it opens
-  // useEffect(() => {
-  //   if (modalCarouselApi) { // This would apply if a main carousel was still present
-  //     modalCarouselApi.scrollTo(0);
-  //     setCurrentModal(1);
-  //   }
-  // }, [activeTab, modalCarouselApi]);
-
-  // Scroll to selected image when modal opens
+  // Reset carousel when tab changes
   useEffect(() => {
-    if (isModalOpen && modalCarouselApi && selectedImageIndex !== null) {
-      modalCarouselApi.scrollTo(selectedImageIndex, true); // true for instant scroll
-      setCurrentModal(selectedImageIndex + 1); // Update current count immediately
+    if (api) {
+      api.scrollTo(0);
+      setCurrent(1);
     }
-  }, [isModalOpen, modalCarouselApi, selectedImageIndex]);
-  
+  }, [activeTab, api]);
+
   return (
     <section id="gallery" className="py-12 lg:py-16 bg-white">
       <div className="container mx-auto px-4">
@@ -158,83 +143,71 @@ const Gallery = () => {
           </TabsList>
 
           <TabsContent value={activeTab} className="mt-0">
-          </TabsList>
+            <Carousel 
+              setApi={setApi}
+              className="w-full max-w-5xl mx-auto"
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+            >
+              <CarouselContent>
+                {filteredImages.map((image, index) => (
+                  <CarouselItem key={image.id} className="basis-full">
+                    <div className="relative aspect-[16/10] md:aspect-[18/10] lg:aspect-[20/9] rounded-xl overflow-hidden bg-black shadow-2xl">
+                      <img 
+                        src={image.src} 
+                        alt={t(image.altKey)} 
+                        className="w-full h-full object-cover"
+                      />
+                      
+                      {/* Gradient overlay for better text readability */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                      
+                      {/* Image title */}
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 className="text-white text-lg md:text-xl font-serif">
+                          {t(image.altKey)}
+                        </h3>
+                      </div>
 
-          <TabsContent value={activeTab} className="mt-0">
-            {/* Thumbnail Grid */}
+                      {/* Image counter */}
+                      <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
+                        {current} / {count}
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              
+              <CarouselPrevious className="left-4 bg-white/90 hover:bg-white border-0 shadow-lg" />
+              <CarouselNext className="right-4 bg-white/90 hover:bg-white border-0 shadow-lg" />
+            </Carousel>
+
+            {/* Improved thumbnail grid */}
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 md:gap-4 mt-4 lg:mt-6 px-2">
               {filteredImages.map((image, index) => (
                 <button
                   key={image.id}
-                  onClick={() => {
-                    setSelectedImageIndex(index);
-                    setIsModalOpen(true);
-                  }}
-                  className="relative aspect-square rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue min-h-[80px] md:min-h-[100px] hover:ring-2 hover:ring-luxury-blue/50"
+                  onClick={() => api?.scrollTo(index)}
+                  className={`relative aspect-square rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue min-h-[80px] md:min-h-[100px] ${
+                    current === index + 1
+                      ? 'ring-3 ring-luxury-gold shadow-lg scale-105' 
+                      : 'hover:ring-2 hover:ring-luxury-blue/50'
+                  }`}
                 >
                   <img 
                     src={image.src} 
                     alt={t(image.altKey)} 
                     className="w-full h-full object-cover transition-all duration-300 hover:brightness-110"
                   />
-                  {/* Removed conditional styling based on 'current' state */}
+                  {current === index + 1 && (
+                    <div className="absolute inset-0 bg-luxury-gold/20" />
+                  )}
                   <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300" />
                 </button>
               ))}
             </div>
-
-            {/* Modal for Image Viewing */}
-            <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-              <DialogContent className="sm:max-w-3xl lg:max-w-5xl p-0 border-0 bg-transparent shadow-2xl">
-                <Carousel 
-                  setApi={setModalCarouselApi}
-                  className="w-full" // Carousel takes full width of DialogContent
-                  opts={{
-                    align: "start",
-                    loop: true,
-                    startIndex: selectedImageIndex ?? 0, // Start at selected image
-                  }}
-                >
-                  <CarouselContent>
-                    {filteredImages.map((image) => (
-                      <CarouselItem key={image.id} className="basis-full">
-                        <div className="relative aspect-[16/10] md:aspect-[18/10] lg:aspect-[20/9] rounded-lg overflow-hidden bg-black">
-                          <img 
-                            src={image.src} 
-                            alt={t(image.altKey)} 
-                            className="w-full h-full object-contain" // Use object-contain to see full image
-                          />
-                          
-                          {/* Gradient overlay for better text readability on title (optional) */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
-                          
-                          {/* Image title */}
-                          <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
-                            <h3 className="text-white text-base md:text-lg font-serif drop-shadow-md">
-                              {t(image.altKey)}
-                            </h3>
-                          </div>
-
-                          {/* Image counter */}
-                          {countModal > 0 && (
-                            <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs md:text-sm font-medium">
-                              {currentModal} / {countModal}
-                            </div>
-                          )}
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  
-                  {filteredImages.length > 1 && (
-                    <>
-                      <CarouselPrevious className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-luxury-dark border-0 shadow-lg h-8 w-8 md:h-10 md:w-10" />
-                      <CarouselNext className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-luxury-dark border-0 shadow-lg h-8 w-8 md:h-10 md:w-10" />
-                    </>
-                  )}
-                </Carousel>
-              </DialogContent>
-            </Dialog>
           </TabsContent>
         </Tabs>
       </div>
