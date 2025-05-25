@@ -129,9 +129,19 @@ const Gallery = () => {
     console.log('Thumbnail clicked - index:', index, 'current api:', !!api);
     if (api) {
       console.log('Scrolling to index:', index);
-      api.scrollTo(index);
-      // Force update the current state immediately
+      console.log('Current scroll snap before:', api.selectedScrollSnap());
+      console.log('Available scroll snaps:', api.scrollSnapList().length);
+      
+      // Use scrollTo method and wait for it to complete
+      api.scrollTo(index, true); // true parameter forces immediate scroll
+      
+      // Also update state immediately for UI feedback
       setCurrent(index);
+      
+      // Add a small delay to log the result
+      setTimeout(() => {
+        console.log('Current scroll snap after:', api.selectedScrollSnap());
+      }, 100);
     }
   };
 
