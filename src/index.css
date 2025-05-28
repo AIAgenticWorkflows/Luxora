@@ -92,12 +92,25 @@
     @apply border-border;
   }
 
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
   body {
     @apply bg-luxury-beige text-luxury-dark font-sans;
+    position: relative;
+    width: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
+  }
+
+  /* Prevent horizontal overflow */
+  #root {
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 }
 
