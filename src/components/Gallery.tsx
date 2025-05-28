@@ -204,15 +204,17 @@ const Gallery = () => {
                           className="max-w-full max-h-full object-contain"
                         />
                         
-                        {/* Image title */}
-                        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-gradient-to-t from-black/70 to-transparent">
-                          <h3 className="text-white text-sm sm:text-lg md:text-xl font-serif">
-                            {t(image.altKey)}
-                          </h3>
+                        {/* Image title with improved styling */}
+                        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                          <div className="max-w-4xl mx-auto">
+                            <h3 className="text-white text-base sm:text-lg md:text-xl lg:text-2xl font-serif font-medium leading-tight text-center drop-shadow-lg">
+                              {t(image.altKey)}
+                            </h3>
+                          </div>
                         </div>
 
-                        {/* Image counter */}
-                        <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 bg-black/70 text-white px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium">
+                        {/* Image counter with improved styling */}
+                        <div className="absolute top-4 right-4 sm:top-6 sm:right-6 bg-black/70 backdrop-blur-sm text-white px-3 py-2 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium border border-white/20">
                           {current} / {count}
                         </div>
                       </div>
