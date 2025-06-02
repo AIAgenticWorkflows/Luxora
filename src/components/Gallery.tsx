@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
-import { TabsContent } from '@/components/ui/tabs';
 import { galleryImagesData, ImageCategory } from '@/data/galleryData';
 import GalleryTabs from './gallery/GalleryTabs';
 import GalleryGrid from './gallery/GalleryGrid';
@@ -38,14 +37,12 @@ const Gallery = () => {
           </p>
         </div>
 
-        <GalleryTabs activeTab={activeTab} onTabChange={handleTabChange} />
-
-        <TabsContent value={activeTab} className="mt-0">
-          <GalleryGrid 
-            images={filteredImages} 
-            onImageClick={handleThumbnailClick} 
-          />
-        </TabsContent>
+        <GalleryTabs 
+          activeTab={activeTab} 
+          onTabChange={handleTabChange}
+          images={filteredImages}
+          onImageClick={handleThumbnailClick}
+        />
 
         <GalleryModal
           isOpen={isModalOpen}

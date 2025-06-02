@@ -1,15 +1,23 @@
 
 import React from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ImageCategory } from '@/data/galleryData';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { ImageCategory, GalleryImage } from '@/data/galleryData';
+import GalleryGrid from './GalleryGrid';
 
 interface GalleryTabsProps {
   activeTab: ImageCategory;
   onTabChange: (value: ImageCategory) => void;
+  images: GalleryImage[];
+  onImageClick: (index: number) => void;
 }
 
-const GalleryTabs: React.FC<GalleryTabsProps> = ({ activeTab, onTabChange }) => {
+const GalleryTabs: React.FC<GalleryTabsProps> = ({ 
+  activeTab, 
+  onTabChange, 
+  images, 
+  onImageClick 
+}) => {
   const { t } = useLanguage();
 
   return (
@@ -25,6 +33,13 @@ const GalleryTabs: React.FC<GalleryTabsProps> = ({ activeTab, onTabChange }) => 
           {t('gallery.filter.interior')}
         </TabsTrigger>
       </TabsList>
+      
+      <TabsContent value={activeTab} className="mt-0">
+        <GalleryGrid 
+          images={images} 
+          onImageClick={onImageClick} 
+        />
+      </TabsContent>
     </Tabs>
   );
 };
