@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +8,8 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { supabase } from "@/integrations/supabase/client";
 import ReCAPTCHA from "react-google-recaptcha";
 
-const RECAPTCHA_SITE_KEY = "6LftYUYrAAAAALzxSVYQBx0Sy62du5hQMhshAQki"; // This is Google's test key - replace with your actual key in production
+// Replace this with your production reCAPTCHA site key
+const RECAPTCHA_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"; // Google's test key - REPLACE WITH PRODUCTION KEY
 
 const Contact = () => {
   const { toast } = useToast();
@@ -25,6 +25,65 @@ const Contact = () => {
     message: ''
   });
 
+  const validateForm = () => {
+    // Client-side validation
+    if (!formData.name.trim() || formData.name.length > 100) {
+      toast({
+        title: "Invalid Name",
+        description: "Name is required and must be less than 100 characters.",
+        variant: "destructive"
+      });
+      return false;
+    }
+
+    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address.",
+        variant: "destructive"
+      });
+      return false;
+    }
+
+    if (!formData.checkin || !formData.checkout) {
+      toast({
+        title: "Invalid Dates",
+        description: "Check-in and check-out dates are required.",
+        variant: "destructive"
+      });
+      return false;
+    }
+
+    if (new Date(formData.checkin) >= new Date(formData.checkout)) {
+      toast({
+        title: "Invalid Dates",
+        description: "Check-out date must be after check-in date.",
+        variant: "destructive"
+      });
+      return false;
+    }
+
+    if (formData.guests < 1 || formData.guests > 20) {
+      toast({
+        title: "Invalid Guest Count",
+        description: "Number of guests must be between 1 and 20.",
+        variant: "destructive"
+      });
+      return false;
+    }
+
+    if (formData.message.length > 1000) {
+      toast({
+        title: "Message Too Long",
+        description: "Message must be less than 1000 characters.",
+        variant: "destructive"
+      });
+      return false;
+    }
+
+    return true;
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData({
@@ -39,6 +98,10 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
     
     if (!recaptchaToken) {
       toast({
@@ -73,49 +136,19 @@ const Contact = () => {
         guests: 2,
         message: ''
       });
-      setRecaptchaToken(null); // Reset reCAPTCHA token as well
+      setRecaptchaToken(null);
       
       toast({
         title: t('inquiry.success.title'),
         description: t('inquiry.success.description'),
       });
     } catch (error: any) {
-      console.error('Raw error submitting form:', error); // Log the raw error
+      console.error('Error submitting form:', error);
 
-      let toastTitle = t('inquiry.error.title');
-      let toastDescription = t('inquiry.error.description');
-
-      if (error && typeof error.message === 'string') {
-        try {
-          // The error.message from supabase.functions.invoke might be the JSON string
-          const parsedError = JSON.parse(error.message);
-
-          if (parsedError && typeof parsedError.error === 'string') {
-            if (parsedError.error === "reCAPTCHA verification failed") {
-              toastDescription = parsedError.details || t('booking.form.recaptchaFailed') || "reCAPTCHA verification failed, please try again.";
-            } else if (parsedError.error === "Failed to send email") {
-              // For "Failed to send email", we give a more generic message to the user
-              // and avoid showing details which might be sensitive.
-              toastDescription = t('inquiry.error.sendFail') || "There was an issue sending your enquiry. Please check your details or contact support if the problem persists.";
-            }
-            // For other parsed errors with a 'details' field, we could use parsedError.details
-            // but the current requirement is to use generic for others.
-            // If parsedError.error is something else but 'details' is present:
-            // else if (parsedError.details) {
-            //   toastDescription = parsedError.details;
-            // }
-          }
-        } catch (parseError) {
-          // If error.message is not a valid JSON string, it might be a network error or other client-side error.
-          console.warn('Could not parse error message as JSON:', parseError);
-          // Fallback to generic error description if parsing fails
-          // toastDescription is already set to t('inquiry.error.description')
-        }
-      }
-      
+      // Generic error handling - don't expose internal details
       toast({
-        title: toastTitle,
-        description: toastDescription,
+        title: t('inquiry.error.title') || 'Error',
+        description: t('inquiry.error.description') || 'There was an issue sending your inquiry. Please try again.',
         variant: "destructive"
       });
     } finally {
@@ -148,6 +181,7 @@ const Contact = () => {
                       id="name" 
                       placeholder={t('booking.form.namePlaceholder')} 
                       required 
+                      maxLength={100}
                       className="w-full"
                       value={formData.name}
                       onChange={handleChange}
@@ -179,6 +213,7 @@ const Contact = () => {
                       id="checkin" 
                       type="date" 
                       required 
+                      min={new Date().toISOString().split('T')[0]}
                       className="w-full"
                       value={formData.checkin}
                       onChange={handleChange}
@@ -193,6 +228,7 @@ const Contact = () => {
                       id="checkout" 
                       type="date" 
                       required 
+                      min={formData.checkin || new Date().toISOString().split('T')[0]}
                       className="w-full"
                       value={formData.checkout}
                       onChange={handleChange}
@@ -208,6 +244,7 @@ const Contact = () => {
                     id="guests" 
                     type="number" 
                     min="1"
+                    max="20"
                     required 
                     className="w-full"
                     value={formData.guests}
@@ -223,6 +260,7 @@ const Contact = () => {
                     id="message" 
                     placeholder={t('booking.form.requestsPlaceholder')} 
                     rows={4} 
+                    maxLength={1000}
                     className="w-full"
                     value={formData.message}
                     onChange={handleChange}
