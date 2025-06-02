@@ -17,12 +17,12 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({ images, onImageClick }) => {
         <button
           key={image.id}
           onClick={() => onImageClick(index)}
-          className="relative aspect-square rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue group w-full"
+          className="relative sm:aspect-square rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue group w-full"
         >
           <img 
             src={image.src} 
             alt={t(image.altKey)} 
-            className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-110"
+            className="w-full h-full object-contain sm:object-cover transition-all duration-300 group-hover:brightness-110"
             loading="lazy"
           />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
