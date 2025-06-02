@@ -89,8 +89,8 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
                       className="max-w-full max-h-full object-contain"
                     />
                     
-                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                      <h3 className="text-white text-sm sm:text-lg md:text-xl font-serif text-center drop-shadow-lg">
+                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-black/60 backdrop-blur-sm">
+                      <h3 className="text-white text-sm sm:text-lg md:text-xl font-sans text-left">
                         {t(image.altKey)}
                       </h3>
                     </div>
