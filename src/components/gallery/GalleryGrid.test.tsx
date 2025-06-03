@@ -56,4 +56,23 @@ describe('GalleryGrid', () => {
     imageButtons[1].click();
     expect(mockOnImageClick).toHaveBeenCalledWith(1);
   });
+
+  it('applies items-start to the grid container for mobile layout', () => {
+    const { container } = render(<GalleryGrid images={mockImages} onImageClick={jest.fn()} />);
+
+    // The GalleryGrid component renders a div that is the grid container.
+    // This div is the first child of the testing library's render container.
+    const gridContainer = container.firstChild;
+    expect(gridContainer).toBeInTheDocument();
+
+    if (gridContainer instanceof HTMLElement) {
+      expect(gridContainer.className).toContain('items-start');
+      // Check for other essential grid classes to ensure we have the correct element
+      expect(gridContainer.className).toContain('grid');
+      expect(gridContainer.className).toContain('grid-cols-2');
+    } else {
+      // Fail the test if container.firstChild is not an HTMLElement
+      throw new Error('Grid container not found or not an HTMLElement');
+    }
+  });
 });

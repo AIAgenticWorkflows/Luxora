@@ -84,7 +84,7 @@ describe('GalleryModal', () => {
     // Check if dialog content is present
     const dialogContent = screen.getByTestId('dialog-content');
     expect(dialogContent).toBeInTheDocument();
-    
+
     // Since images are mapped into CarouselItems, we expect at least one.
     const carouselItems = screen.getAllByTestId('carousel-item');
     expect(carouselItems.length).toBeGreaterThan(0);
@@ -93,7 +93,7 @@ describe('GalleryModal', () => {
     // This requires knowing the structure. The description div is a direct child of the carousel item's content div.
     // Let's assume the description is tied to the first image for this test.
     const firstImageDescription = mockImages[0].altKey;
-    
+
     // The description text is rendered inside an h3, within a div that has the background styles.
     // Let's find all h3s and then check their parent.
     const descriptionTextElement = screen.getByText(firstImageDescription);
@@ -102,19 +102,36 @@ describe('GalleryModal', () => {
     // Check text styling (font-sans, text-left)
     expect(descriptionTextElement.className).toContain('font-sans');
     expect(descriptionTextElement.className).toContain('text-left');
+    expect(descriptionTextElement.className).toContain('drop-shadow-md'); // Added: check for new subtle drop shadow
     expect(descriptionTextElement.className).not.toContain('font-serif');
     expect(descriptionTextElement.className).not.toContain('text-center');
-    expect(descriptionTextElement.className).not.toContain('drop-shadow-lg');
+    expect(descriptionTextElement.className).not.toContain('drop-shadow-lg'); // Ensure the old heavier drop shadow is not there
 
-    // Check container styling (bg-black/60, backdrop-blur-sm)
+    // Check container styling (bg-black/75, backdrop-blur-sm)
     const descriptionContainer = descriptionTextElement.parentElement;
     expect(descriptionContainer).toBeInTheDocument();
     if (descriptionContainer) {
-      expect(descriptionContainer.className).toContain('bg-black/60');
+      expect(descriptionContainer.className).toContain('bg-black/75'); // Updated: check for new background opacity
       expect(descriptionContainer.className).toContain('backdrop-blur-sm');
-      expect(descriptionContainer.className).not.toContain('bg-gradient-to-t');
+      expect(descriptionContainer.className).not.toContain('bg-gradient-to-t'); // Ensure old gradient is not there
     }
-    
+
+    // Check the image centering container (parent of descriptionContainer and the img tag)
+    const imageCenteringContainer = descriptionContainer?.parentElement;
+    expect(imageCenteringContainer).toBeInTheDocument();
+    if (imageCenteringContainer) {
+      expect(imageCenteringContainer.className).toContain('grid');
+      expect(imageCenteringContainer.className).toContain('place-items-center');
+      expect(imageCenteringContainer.className).not.toContain('flex');
+      expect(imageCenteringContainer.className).not.toContain('items-center'); // from flex
+      expect(imageCenteringContainer.className).not.toContain('justify-center'); // from flex
+      // Also check it has other expected classes to be more specific
+      expect(imageCenteringContainer.className).toContain('relative');
+      expect(imageCenteringContainer.className).toContain('w-full');
+      expect(imageCenteringContainer.className).toContain('h-full');
+      expect(imageCenteringContainer.className).toContain('bg-black');
+    }
+
     // Check image count is present (it's sibling to description container)
     // The count is dynamic, so we check for its presence by its structure/styling.
     // Example: "1 / 2"
