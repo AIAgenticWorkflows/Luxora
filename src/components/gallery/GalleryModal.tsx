@@ -82,15 +82,15 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
             <CarouselContent className="h-full">
               {images.map((image, index) => (
                 <CarouselItem key={image.id} className="basis-full h-full">
-                  <div className="relative w-full h-full bg-black flex items-center justify-center">
+                  <div className="relative w-full h-full bg-black grid place-items-center">
                     <img 
                       src={image.src} 
                       alt={t(image.altKey)} 
                       className="max-w-full max-h-full object-contain"
                     />
                     
-                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-black/60 backdrop-blur-sm">
-                      <h3 className="text-white text-sm sm:text-lg md:text-xl font-sans text-left">
+                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-black/75 backdrop-blur-sm max-h-24 sm:max-h-32 md:max-h-36 overflow-y-auto">
+                      <h3 className="text-white text-sm sm:text-lg md:text-xl font-sans text-left drop-shadow-md">
                         {t(image.altKey)}
                       </h3>
                     </div>

@@ -12,7 +12,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({ images, onImageClick }) => {
   const { t } = useLanguage();
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 sm:gap-3 lg:gap-4 w-full">
+    <div className="grid grid-cols-2 items-start sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 sm:gap-3 lg:gap-4 w-full">
       {images.map((image, index) => (
         <button
           key={image.id}
