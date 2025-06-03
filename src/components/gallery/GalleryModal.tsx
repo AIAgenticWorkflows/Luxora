@@ -65,7 +65,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
           View and navigate through gallery images
         </DialogDescription>
         
-        <div className="relative h-full w-full">
+        <div className="relative h-full w-full flex flex-col">
           <DialogClose className="absolute top-2 right-2 sm:top-4 sm:right-4 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-black/50 text-white p-2">
             <X className="h-5 w-5 sm:h-6 sm:w-6" />
             <span className="sr-only">Close</span>
@@ -73,7 +73,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 
           <Carousel 
             setApi={setApi}
-            className="w-full h-full"
+            className="w-full flex-1 min-h-0"
             opts={{
               align: "start",
               loop: true,
@@ -82,21 +82,25 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
             <CarouselContent className="h-full">
               {images.map((image, index) => (
                 <CarouselItem key={image.id} className="basis-full h-full">
-                  <div className="relative w-full h-full bg-black flex items-center justify-center">
-                    <img 
-                      src={image.src} 
-                      alt={t(image.altKey)} 
-                      className="max-w-full max-h-full object-contain"
-                    />
+                  <div className="relative w-full h-full bg-black flex flex-col">
+                    <div className="flex-1 flex items-center justify-center min-h-0 pb-20 sm:pb-24">
+                      <img 
+                        src={image.src} 
+                        alt={t(image.altKey)} 
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
                     
-                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-black/60 backdrop-blur-sm">
-                      <h3 className="text-white text-sm sm:text-lg md:text-xl font-sans text-left">
+                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-black/80 backdrop-blur-sm">
+                      <h3 className="text-white text-sm sm:text-lg md:text-xl font-sans text-left mb-2">
                         {t(image.altKey)}
                       </h3>
-                    </div>
-
-                    <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 bg-black/70 text-white px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium">
-                      {current} / {count}
+                      <div className="flex justify-between items-center">
+                        <div></div>
+                        <div className="bg-black/70 text-white px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium">
+                          {current} / {count}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CarouselItem>
