@@ -82,20 +82,22 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
             <CarouselContent className="h-full">
               {images.map((image, index) => (
                 <CarouselItem key={image.id} className="basis-full h-full">
-                  <div className="relative w-full h-full bg-black grid place-items-center">
-                    <img 
-                      src={image.src} 
-                      alt={t(image.altKey)} 
-                      className="max-w-full max-h-full object-contain"
-                    />
+                  <div className="relative w-full h-full bg-black flex flex-col">
+                    <div className="flex-1 flex items-center justify-center p-4 pb-20">
+                      <img 
+                        src={image.src} 
+                        alt={t(image.altKey)} 
+                        className="max-w-full max-h-full object-contain w-full"
+                      />
+                    </div>
                     
-                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-black/75 backdrop-blur-sm max-h-24 sm:max-h-32 md:max-h-36 overflow-y-auto">
-                      <h3 className="text-white text-sm sm:text-lg md:text-xl font-sans text-left drop-shadow-md">
+                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-gradient-to-t from-black via-black/90 to-transparent min-h-16 sm:min-h-20">
+                      <h3 className="text-white text-sm sm:text-lg md:text-xl font-sans text-left leading-tight mb-2">
                         {t(image.altKey)}
                       </h3>
                     </div>
 
-                    <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 bg-black/70 text-white px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium">
+                    <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 bg-black/70 text-white px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium z-10">
                       {current} / {count}
                     </div>
                   </div>
