@@ -105,8 +105,8 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
               ))}
             </CarouselContent>
             
-            <CarouselPrevious className="left-2 sm:left-4 bg-white/90 hover:bg-white border-0 shadow-lg h-8 w-8 sm:h-10 sm:w-10" />
-            <CarouselNext className="right-2 sm:right-4 bg-white/90 hover:bg-white border-0 shadow-lg h-8 w-8 sm:h-10 sm:w-10" />
+            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-0 shadow-lg h-10 w-10 z-30" />
+            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-0 shadow-lg h-10 w-10 z-30" />
           </Carousel>
         </div>
       </DialogContent>
