@@ -8,8 +8,8 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { supabase } from "@/integrations/supabase/client";
 import ReCAPTCHA from "react-google-recaptcha";
 
-// Google's test site key - works for development/testing
-const RECAPTCHA_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+// Production reCAPTCHA site key
+const RECAPTCHA_SITE_KEY = "6LftYUYrAAAAALzxSVYQBx0Sy62du5hQMhshAQki";
 
 const Contact = () => {
   const { toast } = useToast();
