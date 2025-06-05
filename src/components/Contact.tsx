@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,8 +8,8 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { supabase } from "@/integrations/supabase/client";
 import ReCAPTCHA from "react-google-recaptcha";
 
-// Production reCAPTCHA site key - replace with your actual production key
-const RECAPTCHA_SITE_KEY = "6Ldai7UpAAAAAPOy_mFzafG0SSsJ43h657d34ajX"; // REPLACE WITH YOUR PRODUCTION SITE KEY
+// Google's test site key - works for development/testing
+const RECAPTCHA_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
 
 const Contact = () => {
   const { toast } = useToast();
