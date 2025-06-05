@@ -10,7 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import ReCAPTCHA from "react-google-recaptcha";
 
 // Production reCAPTCHA site key - replace with your actual production key
-const RECAPTCHA_SITE_KEY = "6LcYourProductionSiteKeyHere"; // REPLACE WITH YOUR PRODUCTION SITE KEY
+const RECAPTCHA_SITE_KEY = "6Ldai7UpAAAAAPOy_mFzafG0SSsJ43h657d34ajX"; // REPLACE WITH YOUR PRODUCTION SITE KEY
 
 const Contact = () => {
   const { toast } = useToast();
