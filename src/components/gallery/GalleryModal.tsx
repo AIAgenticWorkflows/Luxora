@@ -83,7 +83,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
               {images.map((image, index) => (
                 <CarouselItem key={image.id} className="basis-full h-full">
                   <div className="relative w-full h-full bg-black">
-                    <div className="h-full flex items-center justify-center p-2 pb-16 sm:p-8 sm:pb-24">
+                    <div className="h-full flex items-center justify-center p-2 pt-8 pb-20 sm:p-8 sm:pb-24">
                       <img 
                         src={image.src} 
                         alt={t(image.altKey)} 
