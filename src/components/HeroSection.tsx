@@ -6,13 +6,6 @@ import { useLanguage } from "@/hooks/useLanguage";
 const HeroSection = () => {
   const { t } = useLanguage();
   
-  const handleBookNow = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-  
   return (
     <div className="relative h-screen w-full">
       {/* Hero Background */}
@@ -42,13 +35,6 @@ const HeroSection = () => {
                   {t('gallery.viewButton')}
                 </Button>
               </a>
-              <Button 
-                variant="outline" 
-                className="bg-transparent border-white text-white hover:bg-white hover:text-luxury-dark px-8 py-6 text-lg w-full sm:w-auto"
-                onClick={handleBookNow}
-              >
-                {t('hero.cta')}
-              </Button>
             </div>
           </div>
         </div>
