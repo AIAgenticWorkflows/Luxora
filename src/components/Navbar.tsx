@@ -19,9 +19,9 @@ const Navbar = () => {
   }, []);
 
   const handleBookNow = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+    const locationSection = document.getElementById('location');
+    if (locationSection) {
+      locationSection.scrollIntoView({ behavior: 'smooth' });
     }
     setIsMobileMenuOpen(false);
   };
@@ -52,7 +52,6 @@ const Navbar = () => {
             <a href="#gallery" className={linkClasses}>{t('nav.gallery')}</a>
             <a href="#features" className={linkClasses}>{t('nav.features')}</a>
             <a href="#location" className={linkClasses}>{t('nav.location')}</a>
-            <a href="#contact" className={linkClasses}>{t('nav.contact')}</a>
             <LanguageToggle />
             <Button 
               className="bg-luxury-gold text-white hover:bg-opacity-90"
@@ -87,7 +86,6 @@ const Navbar = () => {
               <a href="#gallery" className="text-luxury-dark hover:text-luxury-gold" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.gallery')}</a>
               <a href="#features" className="text-luxury-dark hover:text-luxury-gold" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.features')}</a>
               <a href="#location" className="text-luxury-dark hover:text-luxury-gold" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.location')}</a>
-              <a href="#contact" className="text-luxury-dark hover:text-luxury-gold" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.contact')}</a>
               <div className="pt-2">
                 <LanguageToggle />
               </div>

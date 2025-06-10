@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <footer className="bg-luxury-dark text-white py-12">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <h3 className="font-serif text-2xl font-bold mb-4">{t('footer.brandName')}</h3>
             <p className="mb-4 text-gray-300">
@@ -54,35 +54,10 @@ const Footer = () => {
                   {t('nav.location')}
                 </a>
               </li>
-              <li>
-                <a href="#contact" className="text-gray-300 hover:text-luxury-gold transition-colors">
-                  {t('nav.contact')}
-                </a>
-              </li>
               <li className="mt-4">
                 <LanguageToggle />
               </li>
             </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-serif text-xl font-bold mb-4">{t('footer.newsletter.title')}</h4>
-            <p className="text-gray-300 mb-4">
-              {t('footer.newsletter.description')}
-            </p>
-            <form className="flex">
-              <input 
-                type="email" 
-                placeholder={t('footer.newsletter.placeholder')} 
-                className="bg-gray-700 border-gray-600 rounded-l-md py-2 px-3 focus:outline-none focus:ring-1 focus:ring-luxury-gold text-white"
-              />
-              <button 
-                type="submit" 
-                className="bg-luxury-gold text-white py-2 px-4 rounded-r-md hover:bg-opacity-90 transition-colors"
-              >
-                {t('footer.newsletter.button')}
-              </button>
-            </form>
           </div>
         </div>
         
