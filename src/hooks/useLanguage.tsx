@@ -124,8 +124,8 @@ const translations = {
     'inquiry.error.description': 'There was an error sending your inquiry. Please try again.',
 
     // Chatbot
-    'chatbot.title': 'Villa Assistant',
-    'chatbot.welcome': 'Hello! I\'m here to help you with check-in/out times and availability. How can I assist you?',
+    'chatbot.title': 'Luxora Agent',
+    'chatbot.welcome': 'Hello! How can I assist you?',
     'chatbot.checkin': 'Check-in time is from 3:00 PM onwards. Early check-in may be available upon request.',
     'chatbot.checkout': 'Check-out time is until 11:00 AM. Late check-out may be available upon request for an additional fee.',
     'chatbot.times': 'Check-in: 3:00 PM onwards\nCheck-out: Until 11:00 AM\n\nFor early check-in or late check-out requests, please contact us in advance.',
@@ -271,8 +271,8 @@ const translations = {
     'inquiry.error.description': 'Une erreur s\'est produite lors de l\'envoi de votre demande. Veuillez réessayer.',
 
     // Chatbot
-    'chatbot.title': 'Assistant Villa',
-    'chatbot.welcome': 'Bonjour ! Je suis là pour vous aider avec les horaires d\'arrivée/départ et la disponibilité. Comment puis-je vous aider ?',
+    'chatbot.title': 'Agent Luxora',
+    'chatbot.welcome': 'Bonjour ! Comment puis-je vous aider ?',
     'chatbot.checkin': 'L\'heure d\'arrivée est à partir de 15h00. Une arrivée anticipée peut être disponible sur demande.',
     'chatbot.checkout': 'L\'heure de départ est jusqu\'à 11h00. Un départ tardif peut être disponible sur demande moyennant un supplément.',
     'chatbot.times': 'Arrivée : À partir de 15h00\nDépart : Jusqu\'à 11h00\n\nPour les demandes d\'arrivée anticipée ou de départ tardif, veuillez nous contacter à l\'avance.',
