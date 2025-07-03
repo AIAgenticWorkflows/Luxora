@@ -123,6 +123,20 @@ const translations = {
     'inquiry.error.title': 'Error',
     'inquiry.error.description': 'There was an error sending your inquiry. Please try again.',
 
+    // Chatbot
+    'chatbot.title': 'Villa Assistant',
+    'chatbot.welcome': 'Hello! I\'m here to help you with check-in/out times and availability. How can I assist you?',
+    'chatbot.checkin': 'Check-in time is from 3:00 PM onwards. Early check-in may be available upon request.',
+    'chatbot.checkout': 'Check-out time is until 11:00 AM. Late check-out may be available upon request for an additional fee.',
+    'chatbot.times': 'Check-in: 3:00 PM onwards\nCheck-out: Until 11:00 AM\n\nFor early check-in or late check-out requests, please contact us in advance.',
+    'chatbot.availability': 'To check current availability and make a reservation, please visit our booking page. I can direct you there!',
+    'chatbot.pricing': 'For current rates and pricing information, please check our booking page where you can see real-time prices for your desired dates.',
+    'chatbot.location': 'Luxora Villa is located in beautiful Pereybere, Grand-Baie, Mauritius. We\'re just steps away from the pristine Pereybere Beach!',
+    'chatbot.amenities': 'Our villa features: Private pool, 3 bedrooms, modern kitchen, WiFi, air conditioning, beach access, and much more!',
+    'chatbot.default': 'I can help you with:\n• Check-in/check-out times\n• Availability and booking\n• Villa amenities\n• Location information\n\nWhat would you like to know?',
+    'chatbot.placeholder': 'Ask about check-in times, availability...',
+    'chatbot.checkAvailability': 'Check Availability & Book',
+
     // NotFound Page
     'notFound.title': '404',
     'notFound.message': 'Oops! Page not found',
@@ -247,6 +261,20 @@ const translations = {
     'inquiry.success.description': 'Votre demande de réservation a été envoyée. Nous vous contacterons bientôt.',
     'inquiry.error.title': 'Erreur',
     'inquiry.error.description': 'Une erreur s\'est produite lors de l\'envoi de votre demande. Veuillez réessayer.',
+
+    // Chatbot
+    'chatbot.title': 'Assistant Villa',
+    'chatbot.welcome': 'Bonjour ! Je suis là pour vous aider avec les horaires d\'arrivée/départ et la disponibilité. Comment puis-je vous aider ?',
+    'chatbot.checkin': 'L\'heure d\'arrivée est à partir de 15h00. Une arrivée anticipée peut être disponible sur demande.',
+    'chatbot.checkout': 'L\'heure de départ est jusqu\'à 11h00. Un départ tardif peut être disponible sur demande moyennant un supplément.',
+    'chatbot.times': 'Arrivée : À partir de 15h00\nDépart : Jusqu\'à 11h00\n\nPour les demandes d\'arrivée anticipée ou de départ tardif, veuillez nous contacter à l\'avance.',
+    'chatbot.availability': 'Pour vérifier la disponibilité actuelle et faire une réservation, veuillez visiter notre page de réservation. Je peux vous y diriger !',
+    'chatbot.pricing': 'Pour les tarifs actuels et les informations de prix, veuillez consulter notre page de réservation où vous pouvez voir les prix en temps réel pour vos dates souhaitées.',
+    'chatbot.location': 'Luxora Villa est située dans la magnifique Pereybère, Grand-Baie, Maurice. Nous sommes à quelques pas de la plage immaculée de Pereybère !',
+    'chatbot.amenities': 'Notre villa dispose de : Piscine privée, 3 chambres, cuisine moderne, WiFi, climatisation, accès à la plage, et bien plus encore !',
+    'chatbot.default': 'Je peux vous aider avec :\n• Horaires d\'arrivée/départ\n• Disponibilité et réservation\n• Équipements de la villa\n• Informations de localisation\n\nQue souhaitez-vous savoir ?',
+    'chatbot.placeholder': 'Demandez les horaires d\'arrivée, la disponibilité...',
+    'chatbot.checkAvailability': 'Vérifier la Disponibilité et Réserver',
 
     // NotFound Page
     'notFound.title': '404',
