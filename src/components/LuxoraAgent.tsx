@@ -158,19 +158,9 @@ const LuxoraAgent = () => {
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="sm:max-w-[500px] h-[600px] flex flex-col p-0 bg-luxury-beige border-luxury-gold">
           <DialogHeader className="bg-gradient-to-r from-luxury-blue to-primary text-white p-6 rounded-t-lg">
-            <DialogTitle className="flex items-center justify-between font-serif text-xl">
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">🏖️</span>
-                <span>{t('chat.title')}</span>
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsOpen(false)}
-                className="text-white hover:bg-white/20"
-              >
-                <X className="w-5 h-5" />
-              </Button>
+            <DialogTitle className="flex items-center gap-3 font-serif text-xl">
+              <span className="text-2xl">🏖️</span>
+              <span>{t('chat.title')}</span>
             </DialogTitle>
             <p className="text-white/90 text-sm mt-1">{t('chat.subtitle')}</p>
           </DialogHeader>
