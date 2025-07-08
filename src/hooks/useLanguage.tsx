@@ -353,7 +353,14 @@ const LanguageContext = createContext<LanguageContextType>({
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<'en' | 'fr'>('en');
 
-  const t = (key: string): any => {
+  const t = (key: string): string => {
+    // First try direct key access (for flat keys like 'nav.home')
+    const directValue = translations[language][key as keyof typeof translations[typeof language]];
+    if (directValue) {
+      return directValue as string;
+    }
+    
+    // Then try nested object access (for keys like 'chat.quickQuestions.amenities')
     const keys = key.split('.');
     let value: any = translations[language];
     
@@ -365,7 +372,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       }
     }
     
-    return value || key;
+    return (typeof value === 'string' ? value : key) as string;
   };
 
   return (
