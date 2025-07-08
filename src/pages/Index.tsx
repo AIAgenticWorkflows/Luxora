@@ -6,6 +6,7 @@ import Gallery from '../components/Gallery';
 import Features from '../components/Features';
 import Location from '../components/Location';
 import Footer from '../components/Footer';
+import LuxoraAgent from '../components/LuxoraAgent';
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
       <Features />
       <Location />
       <Footer />
+      <LuxoraAgent />
     </div>
   );
 };

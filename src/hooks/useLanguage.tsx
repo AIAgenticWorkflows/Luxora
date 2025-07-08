@@ -145,6 +145,25 @@ const translations = {
     'chatbot.selectedDates': 'Selected dates',
     'chatbot.datesSelected': 'I\'d like to check availability for the selected dates.',
 
+    // Chat
+    'chat.title': 'Luxora Villa Assistant',
+    'chat.subtitle': 'Ask me anything about your luxury villa stay!',
+    'chat.welcome': '👋 Welcome! I\'m here to help with questions about our beautiful 3-bedroom villa in Pereybere, Mauritius. What would you like to know?',
+    'chat.placeholder': 'Ask about amenities, location, booking...',
+    'chat.typing': 'AI is thinking',
+    'chat.quickQuestions': {
+      'amenities': '🏊 Amenities',
+      'beach': '🏖️ Beach Distance',
+      'availability': '📅 Availability',
+      'booking': '💰 How to Book'
+    },
+    'chat.errors': {
+      'generic': 'Sorry, I\'m having trouble connecting right now. Please try again in a moment, or contact our host directly for immediate assistance.',
+      'network': 'Sorry, there was a problem communicating with the AI service (network error). Please check your n8n workflow status and logs.',
+      'invalidJson': 'Sorry, the AI sent a response I could not understand (not valid JSON). Please check the n8n workflow output and the browser console.',
+      'unexpectedFormat': 'Received an unexpected response format from the AI. Please check the console for details and verify the n8n workflow output.'
+    },
+
     // NotFound Page
     'notFound.title': '404',
     'notFound.message': 'Oops! Page not found',
@@ -292,6 +311,25 @@ const translations = {
     'chatbot.selectedDates': 'Dates sélectionnées',
     'chatbot.datesSelected': 'J\'aimerais vérifier la disponibilité pour les dates sélectionnées.',
 
+    // Chat
+    'chat.title': 'Assistant Villa Luxora',
+    'chat.subtitle': 'Demandez-moi tout sur votre séjour de luxe dans notre villa!',
+    'chat.welcome': '👋 Bienvenue! Je suis là pour vous aider avec des questions sur notre magnifique villa de 3 chambres à Pereybere, Maurice. Que souhaitez-vous savoir?',
+    'chat.placeholder': 'Posez des questions sur les équipements, l\'emplacement, la réservation...',
+    'chat.typing': 'L\'IA réfléchit',
+    'chat.quickQuestions': {
+      'amenities': '🏊 Équipements',
+      'beach': '🏖️ Distance de la Plage',
+      'availability': '📅 Disponibilité',
+      'booking': '💰 Comment Réserver'
+    },
+    'chat.errors': {
+      'generic': 'Désolé, j\'ai des difficultés de connexion en ce moment. Veuillez réessayer dans un moment, ou contactez notre hôte directement pour une assistance immédiate.',
+      'network': 'Désolé, il y a eu un problème de communication avec le service IA (erreur réseau). Veuillez vérifier le statut et les logs de votre workflow n8n.',
+      'invalidJson': 'Désolé, l\'IA a envoyé une réponse que je ne peux pas comprendre (JSON invalide). Veuillez vérifier la sortie du workflow n8n et la console du navigateur.',
+      'unexpectedFormat': 'Format de réponse inattendu de l\'IA. Veuillez vérifier la console pour plus de détails et vérifier la sortie du workflow n8n.'
+    },
+
     // NotFound Page
     'notFound.title': '404',
     'notFound.message': 'Oups! Page non trouvée',
@@ -315,8 +353,19 @@ const LanguageContext = createContext<LanguageContextType>({
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<'en' | 'fr'>('en');
 
-  const t = (key: string): string => {
-    return translations[language][key as keyof typeof translations[typeof language]] || key;
+  const t = (key: string): any => {
+    const keys = key.split('.');
+    let value: any = translations[language];
+    
+    for (const k of keys) {
+      if (value && typeof value === 'object' && k in value) {
+        value = value[k];
+      } else {
+        return key; // Return the key if path doesn't exist
+      }
+    }
+    
+    return value || key;
   };
 
   return (
