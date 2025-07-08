@@ -151,18 +151,14 @@ const translations = {
     'chat.welcome': '👋 Welcome! I\'m here to help with questions about our beautiful 3-bedroom villa in Pereybere, Mauritius. What would you like to know?',
     'chat.placeholder': 'Ask about amenities, location, booking...',
     'chat.typing': 'AI is thinking',
-    'chat.quickQuestions': {
-      'amenities': '🏊 Amenities',
-      'beach': '🏖️ Beach Distance',
-      'availability': '📅 Availability',
-      'booking': '💰 How to Book'
-    },
-    'chat.errors': {
-      'generic': 'Sorry, I\'m having trouble connecting right now. Please try again in a moment, or contact our host directly for immediate assistance.',
-      'network': 'Sorry, there was a problem communicating with the AI service (network error). Please check your n8n workflow status and logs.',
-      'invalidJson': 'Sorry, the AI sent a response I could not understand (not valid JSON). Please check the n8n workflow output and the browser console.',
-      'unexpectedFormat': 'Received an unexpected response format from the AI. Please check the console for details and verify the n8n workflow output.'
-    },
+    'chat.quickQuestions.amenities': '🏊 Amenities',
+    'chat.quickQuestions.beach': '🏖️ Beach Distance',
+    'chat.quickQuestions.availability': '📅 Availability',
+    'chat.quickQuestions.booking': '💰 How to Book',
+    'chat.errors.generic': 'Sorry, I\'m having trouble connecting right now. Please try again in a moment, or contact our host directly for immediate assistance.',
+    'chat.errors.network': 'Sorry, there was a problem communicating with the AI service (network error). Please check your n8n workflow status and logs.',
+    'chat.errors.invalidJson': 'Sorry, the AI sent a response I could not understand (not valid JSON). Please check the n8n workflow output and the browser console.',
+    'chat.errors.unexpectedFormat': 'Received an unexpected response format from the AI. Please check the console for details and verify the n8n workflow output.',
 
     // NotFound Page
     'notFound.title': '404',
@@ -317,18 +313,14 @@ const translations = {
     'chat.welcome': '👋 Bienvenue! Je suis là pour vous aider avec des questions sur notre magnifique villa de 3 chambres à Pereybere, Maurice. Que souhaitez-vous savoir?',
     'chat.placeholder': 'Posez des questions sur les équipements, l\'emplacement, la réservation...',
     'chat.typing': 'L\'IA réfléchit',
-    'chat.quickQuestions': {
-      'amenities': '🏊 Équipements',
-      'beach': '🏖️ Distance de la Plage',
-      'availability': '📅 Disponibilité',
-      'booking': '💰 Comment Réserver'
-    },
-    'chat.errors': {
-      'generic': 'Désolé, j\'ai des difficultés de connexion en ce moment. Veuillez réessayer dans un moment, ou contactez notre hôte directement pour une assistance immédiate.',
-      'network': 'Désolé, il y a eu un problème de communication avec le service IA (erreur réseau). Veuillez vérifier le statut et les logs de votre workflow n8n.',
-      'invalidJson': 'Désolé, l\'IA a envoyé une réponse que je ne peux pas comprendre (JSON invalide). Veuillez vérifier la sortie du workflow n8n et la console du navigateur.',
-      'unexpectedFormat': 'Format de réponse inattendu de l\'IA. Veuillez vérifier la console pour plus de détails et vérifier la sortie du workflow n8n.'
-    },
+    'chat.quickQuestions.amenities': '🏊 Équipements',
+    'chat.quickQuestions.beach': '🏖️ Distance de la Plage',
+    'chat.quickQuestions.availability': '📅 Disponibilité',
+    'chat.quickQuestions.booking': '💰 Comment Réserver',
+    'chat.errors.generic': 'Désolé, j\'ai des difficultés de connexion en ce moment. Veuillez réessayer dans un moment, ou contactez notre hôte directement pour une assistance immédiate.',
+    'chat.errors.network': 'Désolé, il y a eu un problème de communication avec le service IA (erreur réseau). Veuillez vérifier le statut et les logs de votre workflow n8n.',
+    'chat.errors.invalidJson': 'Désolé, l\'IA a envoyé une réponse que je ne peux pas comprendre (JSON invalide). Veuillez vérifier la sortie du workflow n8n et la console du navigateur.',
+    'chat.errors.unexpectedFormat': 'Format de réponse inattendu de l\'IA. Veuillez vérifier la console pour plus de détails et vérifier la sortie du workflow n8n.',
 
     // NotFound Page
     'notFound.title': '404',
