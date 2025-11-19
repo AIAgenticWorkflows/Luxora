@@ -59,7 +59,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl w-[95vw] h-[90vh] sm:h-[85vh] p-0 bg-black border-0 rounded-lg">
+      <DialogContent className="max-w-5xl w-[95vw] h-[95vh] p-0 bg-black border-0 rounded-lg">
         <DialogTitle className="sr-only">Gallery Image Viewer</DialogTitle>
         <DialogDescription className="sr-only">
           View and navigate through gallery images
@@ -83,21 +83,21 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
               {images.map((image, index) => (
                 <CarouselItem key={image.id} className="basis-full h-full">
                   <div className="relative w-full h-full bg-black">
-                    <div className="h-full flex items-center justify-center p-2 pt-12 pb-24 sm:p-8 sm:pb-24">
+                    <div className="h-full flex items-center justify-center px-4 py-16 sm:px-12 sm:py-20">
                       <img 
                         src={image.src} 
                         alt={t(image.altKey)} 
-                        className="max-w-full max-h-full object-contain"
+                        className="max-w-full max-h-full w-auto h-auto object-contain"
                       />
                     </div>
                     
-                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-gradient-to-t from-black via-black/90 to-transparent min-h-16 sm:min-h-20">
-                      <h3 className="text-white text-sm sm:text-lg font-sans text-left leading-tight mb-1 sm:mb-2">
+                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-black via-black/90 to-transparent">
+                      <h3 className="text-white text-sm sm:text-base font-sans text-left leading-tight">
                         {t(image.altKey)}
                       </h3>
                     </div>
 
-                    <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 bg-black/70 text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium z-10">
+                    <div className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 bg-black/70 text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium z-10">
                       {current} / {count}
                     </div>
                   </div>
