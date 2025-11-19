@@ -12,12 +12,12 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({ images, onImageClick }) => {
   const { t } = useLanguage();
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 sm:gap-3 lg:gap-4 w-full">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 w-full auto-rows-[280px]">
       {images.map((image, index) => (
         <button
           key={image.id}
           onClick={() => onImageClick(index)}
-          className="relative aspect-square rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-luxury-blue group w-full"
+          className="relative rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-luxury-blue group w-full h-full"
         >
           <img 
             src={image.src} 
