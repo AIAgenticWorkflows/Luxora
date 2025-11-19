@@ -59,15 +59,15 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-5xl w-[95vw] h-[95vh] p-0 bg-black border-0 rounded-lg">
+      <DialogContent className="max-w-6xl w-[98vw] h-[96vh] p-0 bg-black border-0">
         <DialogTitle className="sr-only">Gallery Image Viewer</DialogTitle>
         <DialogDescription className="sr-only">
           View and navigate through gallery images
         </DialogDescription>
         
         <div className="relative h-full w-full">
-          <DialogClose className="absolute top-2 right-2 sm:top-4 sm:right-4 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-black/50 text-white p-1.5 sm:p-2">
-            <X className="h-4 w-4 sm:h-6 sm:w-6" />
+          <DialogClose className="absolute top-3 right-3 sm:top-4 sm:right-4 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-black/50 text-white p-2">
+            <X className="h-5 w-5 sm:h-6 sm:w-6" />
             <span className="sr-only">Close</span>
           </DialogClose>
 
@@ -82,8 +82,8 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
             <CarouselContent className="h-full">
               {images.map((image, index) => (
                 <CarouselItem key={image.id} className="basis-full h-full">
-                  <div className="relative w-full h-full bg-black">
-                    <div className="h-full flex items-center justify-center px-4 py-16 sm:px-12 sm:py-20">
+                  <div className="relative w-full h-full bg-black flex flex-col">
+                    <div className="flex-1 flex items-center justify-center px-16 py-14 sm:px-20 sm:py-16">
                       <img 
                         src={image.src} 
                         alt={t(image.altKey)} 
@@ -91,13 +91,13 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
                       />
                     </div>
                     
-                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-black via-black/90 to-transparent">
-                      <h3 className="text-white text-sm sm:text-base font-sans text-left leading-tight">
+                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
+                      <h3 className="text-white text-sm sm:text-base font-sans">
                         {t(image.altKey)}
                       </h3>
                     </div>
 
-                    <div className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 bg-black/70 text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium z-10">
+                    <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
                       {current} / {count}
                     </div>
                   </div>
@@ -105,8 +105,8 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
               ))}
             </CarouselContent>
             
-            <CarouselPrevious className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-0 shadow-lg h-8 w-8 sm:h-12 sm:w-12 z-40" />
-            <CarouselNext className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-0 shadow-lg h-8 w-8 sm:h-12 sm:w-12 z-40" />
+            <CarouselPrevious className="left-4 sm:left-6 bg-white/90 hover:bg-white border-0 shadow-lg h-10 w-10 sm:h-12 sm:w-12" />
+            <CarouselNext className="right-4 sm:right-6 bg-white/90 hover:bg-white border-0 shadow-lg h-10 w-10 sm:h-12 sm:w-12" />
           </Carousel>
         </div>
       </DialogContent>
