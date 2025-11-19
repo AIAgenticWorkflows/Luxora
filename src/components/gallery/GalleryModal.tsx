@@ -59,7 +59,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-6xl w-[98vw] h-[96vh] p-0 bg-black border-0">
+      <DialogContent className="max-w-5xl w-[95vw] h-[95vh] p-0 bg-black border-0">
         <DialogTitle className="sr-only">Gallery Image Viewer</DialogTitle>
         <DialogDescription className="sr-only">
           View and navigate through gallery images
@@ -80,10 +80,10 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
             }}
           >
             <CarouselContent className="h-full">
-              {images.map((image, index) => (
+              {images.map((image) => (
                 <CarouselItem key={image.id} className="basis-full h-full">
                   <div className="relative w-full h-full bg-black flex flex-col">
-                    <div className="flex-1 flex items-center justify-center px-16 py-14 sm:px-20 sm:py-16">
+                    <div className="flex-1 flex items-center justify-center px-4 py-8 sm:px-8 sm:py-10">
                       <img 
                         src={image.src} 
                         alt={t(image.altKey)} 
@@ -105,8 +105,8 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
               ))}
             </CarouselContent>
             
-            <CarouselPrevious className="left-4 sm:left-6 bg-white/90 hover:bg-white border-0 shadow-lg h-10 w-10 sm:h-12 sm:w-12" />
-            <CarouselNext className="right-4 sm:right-6 bg-white/90 hover:bg-white border-0 shadow-lg h-10 w-10 sm:h-12 sm:w-12" />
+            <CarouselPrevious className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-0 shadow-lg h-10 w-10 sm:h-12 sm:w-12" />
+            <CarouselNext className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-0 shadow-lg h-10 w-10 sm:h-12 sm:w-12" />
           </Carousel>
         </div>
       </DialogContent>
