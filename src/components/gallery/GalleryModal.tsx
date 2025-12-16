@@ -1,22 +1,6 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
-import {
-  Dialog,
-  DialogContent,
-  DialogClose,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  type CarouselApi,
-} from '@/components/ui/carousel';
-import { X } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GalleryImage } from '@/data/galleryData';
 
 interface GalleryModalProps {
@@ -33,84 +17,141 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
   selectedImageIndex,
 }) => {
   const { t } = useLanguage();
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-  const [count, setCount] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(selectedImageIndex);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Minimum swipe distance
+  const minSwipeDistance = 50;
 
   useEffect(() => {
-    if (!api) {
-      return;
+    if (isOpen) {
+      setCurrentIndex(selectedImageIndex);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen, selectedImageIndex]);
 
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
-
-    api.on('select', () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
-
+  // Keyboard navigation
   useEffect(() => {
-    if (api && isOpen) {
-      api.scrollTo(selectedImageIndex);
-      setCurrent(selectedImageIndex + 1);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isOpen) return;
+      if (e.key === 'ArrowLeft') goToPrevious();
+      if (e.key === 'ArrowRight') goToNext();
+      if (e.key === 'Escape') onOpenChange(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, currentIndex]);
+
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  }, [images.length]);
+
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  }, [images.length]);
+
+  // Touch handlers for swipe
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      goToNext();
+    } else if (isRightSwipe) {
+      goToPrevious();
     }
-  }, [api, selectedImageIndex, isOpen]);
+  };
+
+  if (!isOpen) return null;
+
+  const currentImage = images[currentIndex];
 
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-5xl w-[95vw] h-[95vh] p-0 bg-black border-0">
-        <DialogTitle className="sr-only">Gallery Image Viewer</DialogTitle>
-        <DialogDescription className="sr-only">
-          View and navigate through gallery images
-        </DialogDescription>
-        
-        <div className="relative h-full w-full">
-          <DialogClose className="absolute top-3 right-3 sm:top-4 sm:right-4 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-black/50 text-white p-2">
-            <X className="h-5 w-5 sm:h-6 sm:w-6" />
-            <span className="sr-only">Close</span>
-          </DialogClose>
+    <div 
+      className="fixed inset-0 z-50 bg-black"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
+      {/* Close button */}
+      <button
+        onClick={() => onOpenChange(false)}
+        className="absolute top-4 right-4 z-50 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+        aria-label="Close gallery"
+      >
+        <X className="h-6 w-6" />
+      </button>
 
-          <Carousel 
-            setApi={setApi}
-            className="w-full h-full"
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-          >
-            <CarouselContent className="h-full">
-              {images.map((image) => (
-                <CarouselItem key={image.id} className="basis-full h-full">
-                  <div className="relative w-full h-full bg-black flex flex-col">
-                    <div className="flex-1 flex items-center justify-center px-4 py-8 sm:px-8 sm:py-10">
-                      <img 
-                        src={image.src} 
-                        alt={t(image.altKey)} 
-                        className="max-w-full max-h-full w-auto h-auto object-contain"
-                      />
-                    </div>
-                    
-                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
-                      <h3 className="text-white text-sm sm:text-base font-sans">
-                        {t(image.altKey)}
-                      </h3>
-                    </div>
+      {/* Counter */}
+      <div className="absolute top-4 left-4 z-50 bg-black/50 text-white px-3 py-1.5 rounded-full text-sm font-medium">
+        {currentIndex + 1} / {images.length}
+      </div>
 
-                    <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
-                      {current} / {count}
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            
-            <CarouselPrevious className="!left-2 sm:!left-4 bg-white/90 hover:bg-white border-0 shadow-lg h-10 w-10 sm:h-12 sm:w-12" />
-            <CarouselNext className="!right-2 sm:!right-4 bg-white/90 hover:bg-white border-0 shadow-lg h-10 w-10 sm:h-12 sm:w-12" />
-          </Carousel>
-        </div>
-      </DialogContent>
-    </Dialog>
+      {/* Main image container - takes full screen */}
+      <div className="absolute inset-0 flex items-center justify-center p-2 sm:p-4">
+        <img
+          src={currentImage.src}
+          alt={t(currentImage.altKey)}
+          className="max-w-full max-h-full w-auto h-auto object-contain"
+          draggable={false}
+        />
+      </div>
+
+      {/* Caption at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+        <p className="text-white text-sm sm:text-base text-center font-medium">
+          {t(currentImage.altKey)}
+        </p>
+      </div>
+
+      {/* Navigation arrows - visible on all screens */}
+      <button
+        onClick={goToPrevious}
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-50 p-2 sm:p-3 rounded-full bg-white/90 hover:bg-white text-black shadow-lg transition-all active:scale-95"
+        aria-label="Previous image"
+      >
+        <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
+      </button>
+
+      <button
+        onClick={goToNext}
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-50 p-2 sm:p-3 rounded-full bg-white/90 hover:bg-white text-black shadow-lg transition-all active:scale-95"
+        aria-label="Next image"
+      >
+        <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
+      </button>
+
+      {/* Dot indicators for mobile */}
+      <div className="absolute bottom-16 left-0 right-0 flex justify-center gap-1.5 sm:hidden">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`w-2 h-2 rounded-full transition-all ${
+              index === currentIndex ? 'bg-white w-4' : 'bg-white/50'
+            }`}
+            aria-label={`Go to image ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 
