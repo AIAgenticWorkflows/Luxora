@@ -31,7 +31,7 @@ const HeroSection = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="#gallery">
-                <Button className="bg-luxury-gold hover:bg-opacity-90 text-white font-semibold px-8 py-6 text-lg w-full sm:w-auto">
+                <Button className="bg-luxury-gold text-white font-semibold px-8 py-6 text-lg w-full sm:w-auto transition-all duration-300 ease-out hover:bg-luxury-gold/90 hover:shadow-[0_10px_40px_-10px_rgba(212,175,55,0.5)] hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98]">
                   {t('gallery.viewButton')}
                 </Button>
               </a>
