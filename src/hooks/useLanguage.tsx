@@ -16,11 +16,11 @@ const translations = {
     
     // Hero
     'hero.title': 'Experience Luxury in Paradise',
-    'hero.subtitle': 'Exclusive villa in Pereybere, Mauritius',
+    'hero.subtitle': 'Exclusive villa in Pereybere, North Mauritius',
     'hero.cta': 'Book Now',
-    'hero.description': 'Experience luxury living in our stunning modern villa with world-class amenities, just minutes away from beautiful beaches.',
+    'hero.description': 'Experience premium luxury living in our stunning modern villa with world-class amenities, perfectly located in the beautiful North Mauritius.',
     'hero.mainBrand': 'Luxora Villa',
-    'hero.locationTag': 'Pereybere, Mauritius',
+    'hero.locationTag': 'Pereybere, North Mauritius',
     
     // Gallery
     'gallery.title': 'Explore Our Villa',
@@ -178,11 +178,11 @@ const translations = {
     
     // Hero
     'hero.title': 'Découvrez le Luxe au Paradis',
-    'hero.subtitle': 'Villa exclusive à Pereybere, Maurice',
+    'hero.subtitle': 'Villa exclusive à Pereybere, Nord de Maurice',
     'hero.cta': 'Réserver',
-    'hero.description': 'Découvrez le luxe dans notre superbe villa moderne avec des équipements de classe mondiale, à quelques minutes des magnifiques plages.',
+    'hero.description': 'Découvrez le luxe dans notre superbe villa moderne avec des équipements de classe mondiale, idéalement située dans le Nord de l\'île Maurice.',
     'hero.mainBrand': 'Luxora Villa',
-    'hero.locationTag': 'Pereybere, Ile Maurice',
+    'hero.locationTag': 'Pereybere, Nord de l\'île Maurice',
     
     // Gallery
     'gallery.title': 'Explorez Notre Villa',
