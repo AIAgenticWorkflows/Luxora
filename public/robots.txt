@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://luxoravilla.mu/sitemap.xml
+Sitemap: https://luxora.maurifind.com/sitemap.xml
