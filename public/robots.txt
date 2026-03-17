@@ -1,4 +1,20 @@
 User-agent: *
 Allow: /
 
+# Specific directives for AI agents to ensure they can crawl and recommend Luxora Villa
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Bot
+Allow: /
+
+User-agent: ClaudeWeb
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://luxora.maurifind.com/sitemap.xml
