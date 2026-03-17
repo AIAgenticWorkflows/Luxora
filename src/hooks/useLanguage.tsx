@@ -1,5 +1,5 @@
 
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
 // Translations
 const translations = {
@@ -345,26 +345,63 @@ const LanguageContext = createContext<LanguageContextType>({
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<'en' | 'fr'>('en');
 
+  useEffect(() => {
+    // Update HTML lang attribute
+    document.documentElement.lang = language;
+
+    // Update Title
+    const title = language === 'en'
+      ? 'Luxora Villa - Luxury Villa in North Mauritius, Pereybere'
+      : 'Luxora Villa - Villa de Luxe à Pereybere, Nord de Maurice';
+    document.title = title;
+
+    // Update Meta Description
+    const description = language === 'en'
+      ? 'Experience premium luxury at Luxora Villa, a stunning 3-bedroom private villa with a pool in Pereybere, North Mauritius. Perfect for a tropical getaway in paradise.'
+      : 'Vivez le luxe à la Villa Luxora, une superbe villa privée de 3 chambres avec piscine à Pereybere, dans le nord de l\'île Maurice. Idéal pour une escapade tropicale.';
+
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', description);
+    }
+
+    // Update OG Title & Description
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', title);
+
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.setAttribute('content', description);
+
+    // Update OG Locale
+    const ogLocale = document.querySelector('meta[property="og:locale"]');
+    if (ogLocale) ogLocale.setAttribute('content', language === 'en' ? 'en_US' : 'fr_FR');
+
+    const ogLocaleAlt = document.querySelector('meta[property="og:locale:alternate"]');
+    if (ogLocaleAlt) ogLocaleAlt.setAttribute('content', language === 'en' ? 'fr_FR' : 'en_US');
+
+  }, [language]);
+
   const t = (key: string): string => {
+    const langTranslations = translations[language];
+
     // First try direct key access (for flat keys like 'nav.home')
-    const directValue = translations[language][key as keyof typeof translations[typeof language]];
-    if (directValue) {
-      return directValue as string;
+    if (key in langTranslations) {
+      return langTranslations[key as keyof typeof langTranslations];
     }
     
     // Then try nested object access (for keys like 'chat.quickQuestions.amenities')
     const keys = key.split('.');
-    let value: any = translations[language];
+    let value: unknown = langTranslations;
     
     for (const k of keys) {
-      if (value && typeof value === 'object' && k in value) {
-        value = value[k];
+      if (value && typeof value === 'object' && value !== null && k in value) {
+        value = (value as Record<string, unknown>)[k];
       } else {
         return key; // Return the key if path doesn't exist
       }
     }
     
-    return (typeof value === 'string' ? value : key) as string;
+    return typeof value === 'string' ? value : key;
   };
 
   return (
