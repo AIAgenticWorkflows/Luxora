@@ -7,7 +7,7 @@ const HeroSection = () => {
   const { t } = useLanguage();
   
   return (
-    <div className="relative h-screen w-full">
+    <section id="hero" className="relative h-screen w-full">
       {/* Hero Background */}
       <div 
         className="absolute inset-0 bg-cover bg-center" 
@@ -59,7 +59,7 @@ const HeroSection = () => {
           </svg>
         </a>
       </div>
-    </div>
+    </section>
   );
 };
 
