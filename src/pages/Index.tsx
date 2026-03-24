@@ -1,21 +1,30 @@
 
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import Gallery from '../components/Gallery';
-import Features from '../components/Features';
-import Location from '../components/Location';
-import Footer from '../components/Footer';
+
+const Features = lazy(() => import('../components/Features'));
+const Location = lazy(() => import('../components/Location'));
+const Footer = lazy(() => import('../components/Footer'));
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <HeroSection />
-      <Gallery />
-      <Features />
-      <Location />
-      <Footer />
+      <main>
+        <HeroSection />
+        <Gallery />
+        <Suspense fallback={<div className="py-20" />}>
+          <Features />
+        </Suspense>
+        <Suspense fallback={<div className="py-20" />}>
+          <Location />
+        </Suspense>
+      </main>
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };

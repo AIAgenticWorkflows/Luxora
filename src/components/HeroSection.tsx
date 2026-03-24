@@ -8,13 +8,17 @@ const HeroSection = () => {
   
   return (
     <div className="relative h-screen w-full">
-      {/* Hero Background */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center" 
-        style={{
-          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/lovable-uploads/8b20f933-58f6-481b-a4ee-3858f9644d8b.png')",
-        }}
-      />
+      {/* Hero Background - using img for better LCP */}
+      <div className="absolute inset-0">
+        <img
+          src="/lovable-uploads/8b20f933-58f6-481b-a4ee-3858f9644d8b.png"
+          alt="Luxora Villa - Luxury villa with private pool in Pereybere, North Mauritius"
+          className="w-full h-full object-cover"
+          fetchPriority="high"
+          decoding="async"
+        />
+        <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
+      </div>
       
       {/* Hero Content */}
       <div className="relative h-full flex items-center">
@@ -42,13 +46,14 @@ const HeroSection = () => {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
-        <a href="#gallery" className="text-white">
+        <a href="#gallery" className="text-white" aria-label="Scroll down to gallery">
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
             className="h-10 w-10" 
             fill="none" 
             viewBox="0 0 24 24" 
             stroke="currentColor"
+            aria-hidden="true"
           >
             <path 
               strokeLinecap="round" 
