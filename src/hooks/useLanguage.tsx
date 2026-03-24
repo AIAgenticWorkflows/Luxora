@@ -177,12 +177,12 @@ const translations = {
     'nav.logo.part2': ' Villa',
     
     // Hero
-    'hero.title': 'Découvrez le Luxe au Paradis',
-    'hero.subtitle': 'Villa exclusive à Pereybere, Nord de Maurice',
+    'hero.title': 'Villa de Luxe au Nord de l\'Île Maurice',
+    'hero.subtitle': 'Location de villa de vacances à Pereybere, Nord de Maurice',
     'hero.cta': 'Réserver',
-    'hero.description': 'Découvrez le luxe dans notre superbe villa moderne avec des équipements de classe mondiale, idéalement située dans le Nord de l\'île Maurice.',
+    'hero.description': 'Réservez votre séjour de rêve dans notre villa 3 chambres avec piscine privée à Pereybere, près de Grand Baie. La villa de luxe idéale au Nord de l\'île Maurice.',
     'hero.mainBrand': 'Luxora Villa',
-    'hero.locationTag': 'Pereybere, Nord de l\'île Maurice',
+    'hero.locationTag': 'Pereybere, Grand Baie — Nord de l\'île Maurice',
     
     // Gallery
     'gallery.title': 'Explorez Notre Villa',
