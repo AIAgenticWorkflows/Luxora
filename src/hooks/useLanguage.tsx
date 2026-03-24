@@ -114,7 +114,7 @@ const translations = {
     'footer.terms': 'Terms & Conditions',
     'footer.faq': 'FAQ',
     'footer.brandName': 'Luxora Villa',
-    'footer.brandDescription': 'Experience luxury living in our stunning beachside villa in Grand Baie, Mauritius.',
+    'footer.brandDescription': 'Premium luxury villa rental in Pereybere, North Mauritius. 3 bedrooms, private pool, near Grand Baie beaches.',
     'footer.copyrightBrand': 'Luxora Villa.',
     
     // Toasts
