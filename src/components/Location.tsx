@@ -29,8 +29,20 @@ const Location = () => {
   const latitude = -20.003798;
 
   useEffect(() => {
-    fixLeafletIcon();
-    setMapLoaded(true);
+    // Defer map loading until component is visible
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          fixLeafletIcon();
+          setMapLoaded(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    const section = document.getElementById('location');
+    if (section) observer.observe(section);
+    return () => observer.disconnect();
   }, []);
 
   return (
