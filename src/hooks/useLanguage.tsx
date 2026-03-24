@@ -50,8 +50,8 @@ const translations = {
     'gallery.imageAlt.gardenArea': 'Garden Area',
     
     // Features
-    'features.title': 'Villa Features',
-    'features.description': 'Experience luxury living with our premium amenities and carefully designed spaces.',
+    'features.title': 'Luxury Villa Amenities',
+    'features.description': 'Our North Mauritius villa offers premium amenities for an unforgettable holiday experience in Pereybere.',
     'features.bedrooms.title': '3 Spacious Bedrooms',
     'features.bedrooms.description': 'Comfortable bedrooms with air conditioning, luxurious linens, and ample storage space.',
     'features.bathrooms.title': '2 Modern Bathrooms',
