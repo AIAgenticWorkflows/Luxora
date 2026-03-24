@@ -72,8 +72,8 @@ const translations = {
     'features.beachProximity.description': 'Just 5 minutes by car to the beautiful beaches of Pereybere.',
     
     // Location
-    'location.title': 'Paradise Location',
-    'location.description': 'Located in the beautiful Grand Baie area, Luxora Villa offers an exquisite blend of privacy and convenience. Nestled in a serene neighborhood just minutes from the breathtaking beaches of northern Mauritius.',
+    'location.title': 'Prime Location in North Mauritius',
+    'location.description': 'Luxora Villa is ideally located in Pereybere, the heart of North Mauritius. Just minutes from Grand Baie\'s beaches, restaurants, and attractions — the perfect base for your Mauritius villa holiday.',
     'location.beach': 'Beach Access',
     'location.beachDesc': 'Just a short 5-minute drive to Grand Baie Beach and other pristine beaches in northern Mauritius.',
     'location.shopping.title': 'Local Shopping',
