@@ -15,12 +15,12 @@ const translations = {
     'nav.logo.part2': ' Villa',
     
     // Hero
-    'hero.title': 'Experience Luxury in Paradise',
-    'hero.subtitle': 'Exclusive villa in Pereybere, North Mauritius',
+    'hero.title': 'Luxury Villa in North Mauritius',
+    'hero.subtitle': 'Premium holiday villa rental in Pereybere, North Mauritius',
     'hero.cta': 'Book Now',
-    'hero.description': 'Experience premium luxury living in our stunning modern villa with world-class amenities, perfectly located in the beautiful North Mauritius.',
+    'hero.description': 'Book your dream holiday at our stunning 3-bedroom villa with private pool in Pereybere, near Grand Baie. The perfect luxury villa rental in North Mauritius.',
     'hero.mainBrand': 'Luxora Villa',
-    'hero.locationTag': 'Pereybere, North Mauritius',
+    'hero.locationTag': 'Pereybere, Grand Baie — North Mauritius',
     
     // Gallery
     'gallery.title': 'Explore Our Villa',
@@ -50,8 +50,8 @@ const translations = {
     'gallery.imageAlt.gardenArea': 'Garden Area',
     
     // Features
-    'features.title': 'Villa Features',
-    'features.description': 'Experience luxury living with our premium amenities and carefully designed spaces.',
+    'features.title': 'Luxury Villa Amenities',
+    'features.description': 'Our North Mauritius villa offers premium amenities for an unforgettable holiday experience in Pereybere.',
     'features.bedrooms.title': '3 Spacious Bedrooms',
     'features.bedrooms.description': 'Comfortable bedrooms with air conditioning, luxurious linens, and ample storage space.',
     'features.bathrooms.title': '2 Modern Bathrooms',
@@ -72,8 +72,8 @@ const translations = {
     'features.beachProximity.description': 'Just 5 minutes by car to the beautiful beaches of Pereybere.',
     
     // Location
-    'location.title': 'Paradise Location',
-    'location.description': 'Located in the beautiful Grand Baie area, Luxora Villa offers an exquisite blend of privacy and convenience. Nestled in a serene neighborhood just minutes from the breathtaking beaches of northern Mauritius.',
+    'location.title': 'Prime Location in North Mauritius',
+    'location.description': 'Luxora Villa is ideally located in Pereybere, the heart of North Mauritius. Just minutes from Grand Baie\'s beaches, restaurants, and attractions — the perfect base for your Mauritius villa holiday.',
     'location.beach': 'Beach Access',
     'location.beachDesc': 'Just a short 5-minute drive to Grand Baie Beach and other pristine beaches in northern Mauritius.',
     'location.shopping.title': 'Local Shopping',
@@ -114,7 +114,7 @@ const translations = {
     'footer.terms': 'Terms & Conditions',
     'footer.faq': 'FAQ',
     'footer.brandName': 'Luxora Villa',
-    'footer.brandDescription': 'Experience luxury living in our stunning beachside villa in Grand Baie, Mauritius.',
+    'footer.brandDescription': 'Premium luxury villa rental in Pereybere, North Mauritius. 3 bedrooms, private pool, near Grand Baie beaches.',
     'footer.copyrightBrand': 'Luxora Villa.',
     
     // Toasts
@@ -177,12 +177,12 @@ const translations = {
     'nav.logo.part2': ' Villa',
     
     // Hero
-    'hero.title': 'Découvrez le Luxe au Paradis',
-    'hero.subtitle': 'Villa exclusive à Pereybere, Nord de Maurice',
+    'hero.title': 'Villa de Luxe au Nord de l\'Île Maurice',
+    'hero.subtitle': 'Location de villa de vacances à Pereybere, Nord de Maurice',
     'hero.cta': 'Réserver',
-    'hero.description': 'Découvrez le luxe dans notre superbe villa moderne avec des équipements de classe mondiale, idéalement située dans le Nord de l\'île Maurice.',
+    'hero.description': 'Réservez votre séjour de rêve dans notre villa 3 chambres avec piscine privée à Pereybere, près de Grand Baie. La villa de luxe idéale au Nord de l\'île Maurice.',
     'hero.mainBrand': 'Luxora Villa',
-    'hero.locationTag': 'Pereybere, Nord de l\'île Maurice',
+    'hero.locationTag': 'Pereybere, Grand Baie — Nord de l\'île Maurice',
     
     // Gallery
     'gallery.title': 'Explorez Notre Villa',
