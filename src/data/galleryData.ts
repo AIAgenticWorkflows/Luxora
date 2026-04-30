@@ -77,6 +77,24 @@ export const galleryImagesData = [
     src: '/lovable-uploads/outdoor-dining-pool.jpeg',
     altKey: 'gallery.imageAlt.outdoorDiningPool',
     category: 'exterior'
+  },
+  {
+    id: 14,
+    src: '/lovable-uploads/welcome-towels-champagne.jpg',
+    altKey: 'gallery.imageAlt.welcomeTowelsChampagne',
+    category: 'interior'
+  },
+  {
+    id: 15,
+    src: '/lovable-uploads/pool-view-from-room.jpg',
+    altKey: 'gallery.imageAlt.poolViewFromRoom',
+    category: 'interior'
+  },
+  {
+    id: 16,
+    src: '/lovable-uploads/poolside-seating-area.jpg',
+    altKey: 'gallery.imageAlt.poolsideSeatingArea',
+    category: 'exterior'
   }
 ];
 
