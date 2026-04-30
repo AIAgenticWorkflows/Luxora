@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Bed, Bath, Tv, Wifi, Sun, Utensils } from 'lucide-react';
+import { Bed, Bath, Tv, Sun, Utensils } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 
 const Features = () => {
