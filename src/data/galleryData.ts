@@ -71,6 +71,12 @@ export const galleryImagesData = [
     src: '/lovable-uploads/e3a75e0b-1d08-435c-a198-a5bb92cd996e.png',
     altKey: 'gallery.imageAlt.gardenArea',
     category: 'exterior'
+  },
+  {
+    id: 13,
+    src: '/lovable-uploads/outdoor-dining-pool.jpeg',
+    altKey: 'gallery.imageAlt.outdoorDiningPool',
+    category: 'exterior'
   }
 ];
 

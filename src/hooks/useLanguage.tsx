@@ -48,6 +48,7 @@ const translations = {
     'gallery.imageAlt.secondBedroom': 'Second Bedroom',
     'gallery.imageAlt.poolView': 'Pool View',
     'gallery.imageAlt.gardenArea': 'Garden Area',
+    'gallery.imageAlt.outdoorDiningPool': 'Outdoor Dining Area by the Pool',
     
     // Features
     'features.title': 'Luxury Villa Amenities',
@@ -210,6 +211,7 @@ const translations = {
     'gallery.imageAlt.secondBedroom': 'Deuxième Chambre',
     'gallery.imageAlt.poolView': 'Vue sur Piscine',
     'gallery.imageAlt.gardenArea': 'Espace Jardin',
+    'gallery.imageAlt.outdoorDiningPool': 'Espace Repas Extérieur près de la Piscine',
     
     // Features
     'features.title': 'Caractéristiques de la Villa',
