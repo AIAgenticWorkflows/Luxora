@@ -49,6 +49,9 @@ const translations = {
     'gallery.imageAlt.poolView': 'Pool View',
     'gallery.imageAlt.gardenArea': 'Garden Area',
     'gallery.imageAlt.outdoorDiningPool': 'Outdoor Dining Area by the Pool',
+    'gallery.imageAlt.welcomeTowelsChampagne': 'Welcome Towels and Champagne',
+    'gallery.imageAlt.poolViewFromRoom': 'Pool View from Bedroom',
+    'gallery.imageAlt.poolsideSeatingArea': 'Poolside Seating Area',
     
     // Features
     'features.title': 'Luxury Villa Amenities',
@@ -212,6 +215,9 @@ const translations = {
     'gallery.imageAlt.poolView': 'Vue sur Piscine',
     'gallery.imageAlt.gardenArea': 'Espace Jardin',
     'gallery.imageAlt.outdoorDiningPool': 'Espace Repas Extérieur près de la Piscine',
+    'gallery.imageAlt.welcomeTowelsChampagne': 'Serviettes de Bienvenue et Champagne',
+    'gallery.imageAlt.poolViewFromRoom': 'Vue sur la Piscine depuis la Chambre',
+    'gallery.imageAlt.poolsideSeatingArea': 'Espace Salon au Bord de la Piscine',
     
     // Features
     'features.title': 'Caractéristiques de la Villa',
