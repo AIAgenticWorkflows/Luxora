@@ -211,6 +211,7 @@ const translations = {
     'gallery.imageAlt.secondBedroom': 'Deuxième Chambre',
     'gallery.imageAlt.poolView': 'Vue sur Piscine',
     'gallery.imageAlt.gardenArea': 'Espace Jardin',
+    'gallery.imageAlt.outdoorDiningPool': 'Espace Repas Extérieur près de la Piscine',
     
     // Features
     'features.title': 'Caractéristiques de la Villa',
