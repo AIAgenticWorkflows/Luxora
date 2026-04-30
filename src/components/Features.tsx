@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Bed, Bath, Tv, Wifi, Sun, Utensils } from 'lucide-react';
+import { Bed, Bath, Tv, Sun, Utensils } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 
 const Features = () => {
@@ -80,17 +80,6 @@ const Features = () => {
             <h3 className="text-xl font-serif font-bold mb-2">{t('features.livingRoom.title')}</h3>
             <p className="text-gray-600">
               {t('features.livingRoom.description')}
-            </p>
-          </div>
-          
-          {/* WiFi */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <div className="amenity-icon">
-              <Wifi size={24} />
-            </div>
-            <h3 className="text-xl font-serif font-bold mb-2">{t('features.wifi.title')}</h3>
-            <p className="text-gray-600">
-              {t('features.wifi.description')}
             </p>
           </div>
           
