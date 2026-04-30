@@ -48,6 +48,7 @@ const translations = {
     'gallery.imageAlt.secondBedroom': 'Second Bedroom',
     'gallery.imageAlt.poolView': 'Pool View',
     'gallery.imageAlt.gardenArea': 'Garden Area',
+    'gallery.imageAlt.outdoorDiningPool': 'Outdoor Dining Area by the Pool',
     
     // Features
     'features.title': 'Luxury Villa Amenities',
