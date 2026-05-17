@@ -20,6 +20,9 @@ const Index = () => {
           <Features />
         </Suspense>
         <Suspense fallback={<div className="py-20" />}>
+          <Reviews />
+        </Suspense>
+        <Suspense fallback={<div className="py-20" />}>
           <Location />
         </Suspense>
       </main>
