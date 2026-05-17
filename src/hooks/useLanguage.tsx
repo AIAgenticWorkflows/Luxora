@@ -15,7 +15,7 @@ const translations = {
     'nav.logo.part2': ' Villa',
     
     // Hero
-    'hero.title': 'Luxury Villa in North Mauritius',
+    'hero.title': 'Luxury Villa in Grand Baie, Mauritius',
     'hero.subtitle': 'Premium holiday villa rental in Pereybere, North Mauritius',
     'hero.cta': 'Book Now',
     'hero.description': 'Book your dream holiday at our stunning 3-bedroom villa with private pool in Pereybere, near Grand Baie. The perfect luxury villa rental in North Mauritius.',
