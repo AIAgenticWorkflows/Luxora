@@ -37,7 +37,7 @@ const Reviews = () => {
   const { t, language } = useLanguage();
 
   return (
-    <section id="reviews" className="py-20 bg-luxury-cream/30">
+    <section id="reviews" className="py-20 bg-luxury-beige">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-serif font-bold text-luxury-dark mb-3">
