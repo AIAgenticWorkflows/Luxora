@@ -21,6 +21,8 @@ const translations = {
     'hero.description': 'Book your dream holiday at our stunning 3-bedroom villa with private pool in Pereybere, near Grand Baie. The perfect luxury villa rental in North Mauritius.',
     'hero.mainBrand': 'Luxora Villa',
     'hero.locationTag': 'Pereybere, Grand Baie — North Mauritius',
+    'reviews.title': 'What guests say',
+    'reviews.subtitle': 'Rated Wonderful by verified guests on',
     
     // Gallery
     'gallery.title': 'Explore Our Villa',
@@ -187,6 +189,8 @@ const translations = {
     'hero.description': 'Réservez votre séjour de rêve dans notre villa 3 chambres avec piscine privée à Pereybere, près de Grand Baie. La villa de luxe idéale au Nord de l\'île Maurice.',
     'hero.mainBrand': 'Luxora Villa',
     'hero.locationTag': 'Pereybere, Grand Baie — Nord de l\'île Maurice',
+    'reviews.title': 'Avis des voyageurs',
+    'reviews.subtitle': 'Noté Merveilleux par les voyageurs vérifiés sur',
     
     // Gallery
     'gallery.title': 'Explorez Notre Villa',

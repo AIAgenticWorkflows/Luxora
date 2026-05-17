@@ -51,6 +51,7 @@ const Navbar = () => {
               <a href="#" className={linkClasses}>{t('nav.home')}</a>
               <a href="#gallery" className={linkClasses}>{t('nav.gallery')}</a>
               <a href="#features" className={linkClasses}>{t('nav.features')}</a>
+              <a href="#reviews" className={linkClasses}>★ 9.3</a>
               <a href="#location" className={linkClasses}>{t('nav.location')}</a>
               <LanguageToggle />
             </div>

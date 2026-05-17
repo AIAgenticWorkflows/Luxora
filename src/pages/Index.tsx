@@ -5,6 +5,7 @@ import HeroSection from '../components/HeroSection';
 import Gallery from '../components/Gallery';
 
 const Features = lazy(() => import('../components/Features'));
+const Reviews = lazy(() => import('../components/Reviews'));
 const Location = lazy(() => import('../components/Location'));
 const Footer = lazy(() => import('../components/Footer'));
 
@@ -17,6 +18,9 @@ const Index = () => {
         <Gallery />
         <Suspense fallback={<div className="py-20" />}>
           <Features />
+        </Suspense>
+        <Suspense fallback={<div className="py-20" />}>
+          <Reviews />
         </Suspense>
         <Suspense fallback={<div className="py-20" />}>
           <Location />
